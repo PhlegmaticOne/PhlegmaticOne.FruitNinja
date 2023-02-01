@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Positions
+namespace Positioning
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(Camera))]

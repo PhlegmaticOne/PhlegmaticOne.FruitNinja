@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entities.Base;
 using UnityEngine;
 
@@ -6,24 +7,22 @@ namespace Game.Scripts.Blocks
 {
     public class BlocksSystem : MonoBehaviour
     {
-        private readonly List<CuttableBlock> _blocksOnField = new List<CuttableBlock>();
+        private readonly List<Block> _blocksOnField = new List<Block>();
         
-        public IReadOnlyList<CuttableBlock> BlocksOnField => _blocksOnField;
+        public IEnumerable<CuttableBlock> CuttableBlocksOnField =>
+            _blocksOnField.OfType<CuttableBlock>();
 
-        public void AddBlock(CuttableBlock cuttableBlock)
+        public void AddBlock(Block block)
         {
-            cuttableBlock.ScreenLeaved += CuttableBlockOnScreenLeaved;
-            _blocksOnField.Add(cuttableBlock);
+            block.ScreenLeaved += CuttableBlockOnScreenLeaved;
+            _blocksOnField.Add(block);
         }
 
         private void CuttableBlockOnScreenLeaved(Block block)
         {
-            if (block is CuttableBlock cuttableBlock)
-            {
-                cuttableBlock.ScreenLeaved -= CuttableBlockOnScreenLeaved;
-                _blocksOnField.Remove(cuttableBlock);
-                cuttableBlock.PermanentDestroy();
-            }
+            block.ScreenLeaved -= CuttableBlockOnScreenLeaved;
+            _blocksOnField.Remove(block);
+            block.PermanentDestroy();
         }
     }
 }

@@ -12,14 +12,14 @@ namespace Entities.Base
         
         public event Action<Block> ScreenLeaved; 
 
-        public void Initialize(MovementBase movementBase, BlockInfo blockInfo)
+        public void Initialize(BlockInfo blockInfo)
         {
-            base.Initialize(movementBase);
             _blockView.SetSprite(blockInfo.Sprite);
             BlockSprite = blockInfo.Sprite;
         }
 
         public void PermanentDestroy() => Destroy(gameObject);
+        
         private void OnBecameInvisible() => ScreenLeaved?.Invoke(this);
     }
 }

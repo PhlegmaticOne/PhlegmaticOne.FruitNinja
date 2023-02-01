@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Abstracts.Factories;
 using Abstracts.Probabilities;
 using Concrete.Factories;
@@ -14,15 +13,15 @@ namespace Spawning
 {
     public class CuttableBlocksSpawningSystem : MonoBehaviour
     {
+        [SerializeField] private SpawningSystemInfo _spawningSystemInfo;
         [SerializeField] private List<SpawnerInfo> _spawnerInfos;
         [SerializeField] private List<BlockInfo> _blockInfos;
         [SerializeField] private BlocksSystem _blocksSystem;
-        [SerializeField] private float _spawnTime = 10f;
         
         private float _minIncreaseX = 3;
-        private float _minIncreaseY = 4;
+        private float _minIncreaseY = 5.5f;
         private float _maxIncreaseX = 10;
-        private float _maxIncreaseY = 6;
+        private float _maxIncreaseY = 7.5f;
 
         private float _initialBlocksGravity = 3;
 
@@ -42,6 +41,15 @@ namespace Spawning
         {
             while (true)
             {
+                yield return SpawnPackage(GetBlocksInPackageCount());
+                yield return new WaitForSeconds(GetSpawnPackageInterval());
+            }
+        }
+
+        private IEnumerator SpawnPackage(int count)
+        {
+            for (var i = 0; i < count; i++)
+            {
                 var spawnerInfo = _spawnerInfos.GetRandomItemBasedOnProbabilities();
 
                 var spawnedBlock = _blocksFactory.Create(new BlockCreationContext
@@ -53,8 +61,24 @@ namespace Spawning
                 });
                 
                 _blocksSystem.AddBlock(spawnedBlock);
-                yield return new WaitForSeconds(_spawnTime);
+
+                yield return new WaitForSeconds(GetSpawnBlockInPackageInterval());
             }
+        }
+
+        private int GetBlocksInPackageCount()
+        {
+            return _spawningSystemInfo.BlocksInPackage.Min;
+        }
+
+        private float GetSpawnBlockInPackageInterval()
+        {
+            return _spawningSystemInfo.SpawnBlockInPackageIntervals.Max;
+        }
+        
+        private float GetSpawnPackageInterval()
+        {
+            return _spawningSystemInfo.SpawnPackageIntervals.Max;
         }
 
         private Vector3 GetSpawnPoint(SpawnerInfo spawnerInfo)

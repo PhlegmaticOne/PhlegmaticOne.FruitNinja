@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Positions
+namespace Positioning
 {
 	[ExecuteInEditMode]
 	public class GameObjectAnchor : MonoBehaviour
