@@ -1,4 +1,5 @@
 ﻿using System;
+using Abstracts.Animations;
 using Configurations;
 using Physics;
 using UnityEngine;
@@ -7,19 +8,28 @@ namespace Entities.Base
 {
     public class Block : GravityObject
     {
-        [SerializeField] private BlockView _blockView;
-        public Sprite BlockSprite { get; private set; }
+        [SerializeField] protected BlockView _blockView;
         
-        public event Action<Block> ScreenLeaved; 
+        private ITransformAnimation _transformAnimation;
+        public BlockInfo BlockInfo { get; private set; }
+        public ITransformAnimation TransformAnimation => _transformAnimation;
+        public event Action<Block> OnDestroying; 
 
-        public void Initialize(BlockInfo blockInfo)
+        public void Initialize(BlockInfo blockInfo, ITransformAnimation transformAnimation)
         {
+            BlockInfo = blockInfo;
+            _transformAnimation = transformAnimation;
             _blockView.SetSprite(blockInfo.Sprite);
-            BlockSprite = blockInfo.Sprite;
+            _transformAnimation.Start(transform);
         }
 
-        public void PermanentDestroy() => Destroy(gameObject);
-        
-        private void OnBecameInvisible() => ScreenLeaved?.Invoke(this);
+        public void PermanentDestroy()
+        {
+            _transformAnimation.Stop(transform);
+            Destroy(gameObject);
+        }
+
+        private void OnBecameInvisible() => InvokeOnDestroying();
+        private void InvokeOnDestroying() => OnDestroying?.Invoke(this);
     }
 }

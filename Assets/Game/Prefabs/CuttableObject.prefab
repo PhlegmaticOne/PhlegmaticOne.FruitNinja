@@ -191,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 8623482291342484930}
   _shadowEffect: {fileID: 3375531757471784260}
+  _particleSystem: {fileID: 0}
 --- !u!212 &8623482291342484930
 SpriteRenderer:
   m_ObjectHideFlags: 0

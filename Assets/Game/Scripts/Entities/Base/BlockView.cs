@@ -18,8 +18,5 @@ namespace Entities.Base
         {
             _shadowEffect.UpdateShadow(transform);
         }
-        
-
-        public Sprite GetSprite() => _spriteRenderer.sprite;
     }
 }

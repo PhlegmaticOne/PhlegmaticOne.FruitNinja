@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: FigConfiguration
   m_EditorClassIdentifier: 
   _sprite: {fileID: 21300000, guid: d491428d2ce23854bbcd4dda0840a437, type: 3}
+  _juiceEffectColor: {r: 0.27525163, g: 0.060163744, b: 0.6132076, a: 1}
+  _radius: 2
