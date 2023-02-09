@@ -9,7 +9,6 @@ namespace Systems.Blocks
     {
         [SerializeField] private BlocksSystem _blocksSystem;
 
-        public IEnumerable<CuttableBlock> CuttableBlocksOnField =>
-            _blocksSystem.AllBlocksOnField.OfType<CuttableBlock>();
+        public IEnumerable<CuttableBlock> CuttableBlocksOnField => _blocksSystem.AllBlocksOnField.OfType<CuttableBlock>();
     }
 }

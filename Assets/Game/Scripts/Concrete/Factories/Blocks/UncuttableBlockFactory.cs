@@ -1,11 +1,12 @@
-﻿using Abstracts.Factories;
+﻿using Concrete.Factories.Blocks.Base;
+using Concrete.Factories.Blocks.Models;
 using Configurations;
 using Entities.Base;
 using UnityEngine;
 
 namespace Concrete.Factories.Blocks
 {
-    public class UncuttableBlockFactory : IFactory<FromBlockBlockCreationContext, UncuttableBlock>
+    public class UncuttableBlockFactory : IUncuttableBlocksFactory
     {
         private readonly UncuttableBlock _uncuttableBlockPrefab;
         private readonly Transform _parent;
@@ -24,6 +25,8 @@ namespace Concrete.Factories.Blocks
             var transform = originalBlock.transform;
             
             block.transform.position = transform.position;
+            block.transform.rotation = Quaternion.Euler(0, 0, creationContext.Angle);
+            block.transform.localScale = transform.localScale;
             block.SetGravityAcceleration(originalBlock.GetGravityAcceleration());
             block.AddSpeed(originalBlock.GetSpeed() * creationContext.MultiplySpeedBy);
             blockInfo.SetSprite(creationContext.BlockNewSprite);

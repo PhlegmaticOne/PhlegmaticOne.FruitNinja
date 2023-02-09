@@ -14,10 +14,7 @@ namespace Systems.Cutting
             IsSlicing = true;
         }
 
-        public void SliceTo(Vector3 newPosition)
-        {
-            transform.position = newPosition;
-        }
+        public void SliceTo(Vector3 newPosition) => transform.position = newPosition;
 
         public void EndSlicing()
         {

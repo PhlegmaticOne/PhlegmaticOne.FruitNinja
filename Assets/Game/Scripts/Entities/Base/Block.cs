@@ -9,11 +9,12 @@ namespace Entities.Base
     public class Block : GravityObject
     {
         [SerializeField] protected BlockView _blockView;
+        private bool _isDestroyed;
         
         private ITransformAnimation _transformAnimation;
         public BlockInfo BlockInfo { get; private set; }
         public ITransformAnimation TransformAnimation => _transformAnimation;
-        public event Action<Block> OnDestroying; 
+        public event Action<Block> Fallen; 
 
         public void Initialize(BlockInfo blockInfo, ITransformAnimation transformAnimation)
         {
@@ -26,10 +27,19 @@ namespace Entities.Base
         public void PermanentDestroy()
         {
             _transformAnimation.Stop(transform);
+            _isDestroyed = true;
             Destroy(gameObject);
         }
 
-        private void OnBecameInvisible() => InvokeOnDestroying();
-        private void InvokeOnDestroying() => OnDestroying?.Invoke(this);
+        private void OnBecameInvisible()
+        {
+            if (_isDestroyed)
+            {
+                return;
+            }
+            OnFallen();
+        }
+
+        private void OnFallen() => Fallen?.Invoke(this);
     }
 }

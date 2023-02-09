@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Abstracts.Factories;
 using Abstracts.Probabilities;
-using Concrete.Factories.Blocks;
+using Abstracts.Stages;
+using Concrete.Factories.Blocks.Base;
+using Concrete.Factories.Blocks.Models;
 using Configurations;
-using Entities.Base;
 using Spawning.Spawning.Difficulty;
 using Systems.Blocks;
 using UnityEngine;
@@ -12,24 +12,26 @@ using Random = UnityEngine.Random;
 
 namespace Spawning.Spawning
 {
-    public class CuttableBlocksSpawningSystem : MonoBehaviour
+    public class CuttableBlocksSpawningSystem : MonoBehaviour, IStageable
     {
         [SerializeField] private BlocksSystem _blocksSystem;
         [SerializeField] private SpawningSystemInfo _spawningSystemInfo;
         [SerializeField] private List<BlockInfo> _blockInfos;
         [SerializeField] private List<SpawnerInfo> _spawnerInfos;
 
-        private IFactory<BlockCreationContext, CuttableBlock> _blocksFactory;
+        private ICuttableBlocksFactory _blocksFactory;
         private ISpawningDifficulty _spawningDifficulty;
+
+        private Coroutine _spawnCoroutine;
         
-        public void Initialize(IFactory<BlockCreationContext, CuttableBlock> blocksFactory,
-            ISpawningDifficulty spawningDifficulty)
+        public void Initialize(ICuttableBlocksFactory blocksFactory, ISpawningDifficulty spawningDifficulty)
         {
             _blocksFactory = blocksFactory;
             _spawningDifficulty = spawningDifficulty;
         }
         
-        private void Start() => StartCoroutine(Spawn());
+        public void Enable() => _spawnCoroutine = StartCoroutine(Spawn());
+        public void Disable() => StopCoroutine(_spawnCoroutine);
 
         private IEnumerator Spawn()
         {

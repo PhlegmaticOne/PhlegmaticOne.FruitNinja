@@ -1,43 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Abstracts.Animations;
-using Abstracts.Commands;
-using Abstracts.Factories;
 using Abstracts.Initialization;
-using Concrete.Animations;
-using Concrete.Commands;
+using Concrete.Commands.ModelCommands;
+using Concrete.Commands.ModelCommands.Base;
+using Concrete.Commands.ViewCommands;
+using Concrete.Commands.ViewCommands.Base;
 using Concrete.Factories.Animations;
 using Concrete.Factories.Blocks;
+using Concrete.Factories.Blocks.Base;
 using Entities.Base;
-using Systems.Blocks;
 using UnityEngine;
 
 namespace Initialization.Factories
 {
-    public class FruitsFactoryInitializer : InitializerBase<IFactory<BlockCreationContext, CuttableBlock>>
+    public class FruitsFactoryInitializer : InitializerBase<ICuttableBlocksFactory>
     {
-        [SerializeField] private UncuttableBlock _uncuttableBlock;
-        [SerializeField] private ParticleSystem _juiceParticleSystem;
-        [SerializeField] private Transform _blocksParent;
-        [SerializeField] private Transform _effectsParent;
+        [SerializeField] 
+        private List<InitializerBase<ICuttableBlockOnDestroyViewCommand>> _onDestroyViewCommands;
+        [SerializeField] 
+        private List<InitializerBase<ICuttableBlockOnDestroyCommand>> _onDestroyCommands;
+        [SerializeField] private List<InitializerBase<ITransformAnimation>> _transformAnimations;
+        [SerializeField] private Transform _blocksTransform;
         [SerializeField] private CuttableBlock _prefab;
-        [SerializeField] private BlocksSystem _blocksSystem;
-        public override IFactory<BlockCreationContext, CuttableBlock> Create()
+        
+        public override ICuttableBlocksFactory Create()
         {
-            var animationsFactory = new AnimationsFactory(new List<Func<ITransformAnimation>>
-            {
-                () => new RotateAnimation(2),
-                () => new ScaleAnimation(1.3f, 2)
-            });
-            
-            var uncuttableBlockFactory = new UncuttableBlockFactory(_uncuttableBlock, _blocksParent);
-            
-            return new FruitsFactory(_blocksParent, _prefab, animationsFactory,
-                new CompositeDestroyViewCommand(new List<IOnDestroyViewCommand<CuttableBlock, FruitDestroyContext>>()
-                {
-                    new FruitOnDestroyViewCommand(_juiceParticleSystem, _effectsParent),
-                    new CutFruitIntoPartViewCommand(uncuttableBlockFactory, _blocksSystem)
-                }));
+            var animationsFactory = new AnimationsFactory(_transformAnimations.Select(x => x.Create()));
+            var onDestroyCommand = new CompositeOnDestroyCommand(_onDestroyCommands.Select(x => x.Create()).ToList());
+            var onDestroyViewCommand = new CompositeDestroyViewCommand(_onDestroyViewCommands.Select(x => x.Create()).ToList());
+            return new FruitBlocksFactory(_blocksTransform, _prefab, animationsFactory, onDestroyCommand, onDestroyViewCommand);
         }
     }
 }

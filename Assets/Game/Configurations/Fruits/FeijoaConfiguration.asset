@@ -15,3 +15,4 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 09b9be4577cd9ef44bfc1543288e5b55, type: 3}
   _juiceEffectColor: {r: 0.056817338, g: 0.5283019, b: 0.056817338, a: 1}
   _radius: 2
+  _scoreForSlicing: 50

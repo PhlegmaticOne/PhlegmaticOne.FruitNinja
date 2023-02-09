@@ -1,10 +1,11 @@
 ﻿using Abstracts.Data;
+using Abstracts.Stages;
 using Systems.Score.Models;
 using UnityEngine;
 
 namespace Systems.Score
 {
-    public class ScoreSystem : MonoBehaviour
+    public class ScoreSystem : MonoBehaviour, IStageable
     {
         [SerializeField] private ScoreView _currentScoreView;
         [SerializeField] private ScoreView _maxScoreView;
@@ -13,12 +14,10 @@ namespace Systems.Score
         private ScoreModel _currentMaxScore;
         private ScoreModel _currentScore;
 
-        public void Initialize(IRepository<ScoreModel> maxScoreRepository)
-        {
-            _maxScoreRepository = maxScoreRepository;
-            _currentMaxScore = maxScoreRepository.Get();
-            _currentScore = new ScoreModel(0);
-        }
+        public void Initialize(IRepository<ScoreModel> maxScoreRepository) => _maxScoreRepository = maxScoreRepository;
+
+        public int GameScore => _currentScore.Value;
+        public int MaxScore => _currentMaxScore.Value;
 
         public void AddScorePoints(int scorePoints)
         {
@@ -27,7 +26,6 @@ namespace Systems.Score
             if (_currentScore.Value > _currentMaxScore.Value)
             {
                 AddPoints(_currentMaxScore, _maxScoreView, scorePoints);
-                _maxScoreRepository.AddOrUpdate(_currentMaxScore);
             }
         }
 
@@ -35,6 +33,19 @@ namespace Systems.Score
         {
             scoreModel.AddScore(scorePointsToAdd);
             scoreView.SetScore(scoreModel.Value);
+        }
+
+        public void Enable()
+        {
+            _currentMaxScore = _maxScoreRepository.Get();
+            _maxScoreView.SetScorePermanent(_currentMaxScore.Value);
+            _currentScore = new ScoreModel(0);
+            _currentScoreView.SetScorePermanent(_currentScore.Value);
+        }
+
+        public void Disable()
+        {
+            _maxScoreRepository.AddOrUpdate(_currentMaxScore);
         }
     }
 }

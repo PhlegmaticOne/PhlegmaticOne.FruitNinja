@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Abstracts.Animations;
 using Abstracts.Factories;
@@ -10,30 +9,22 @@ namespace Concrete.Factories.Animations
 {
     public class AnimationsFactory : IFactory<ITransformAnimation>
     {
-        private readonly List<Func<ITransformAnimation>> _animationFuncs;
+        private readonly List<ITransformAnimation> _animations;
 
-        public AnimationsFactory(IEnumerable<Func<ITransformAnimation>> animationFuncs)
-        {
-            _animationFuncs = animationFuncs.ToList();
-            AddCompositeAnimation();
-        }
-        
+        public AnimationsFactory(IEnumerable<ITransformAnimation> animations) => 
+            _animations = animations.ToList();
+
         public ITransformAnimation Create()
         {
-            var randomIndex = Random.Range(0, _animationFuncs.Count);
-            return _animationFuncs[randomIndex]();
+            var randomIndex = Random.Range(0, _animations.Count + 1);
+            return randomIndex == _animations.Count ? CreateCompositeAnimation() : _animations[randomIndex];
         }
 
-        private void AddCompositeAnimation()
+        private ITransformAnimation CreateCompositeAnimation()
         {
-            _animationFuncs.Add(() =>
-            {
-                var animationsCount = Random.Range(0, _animationFuncs.Count + 1);
-                var animations = _animationFuncs
-                    .Take(animationsCount)
-                    .Select(x => x());
-                return new CompositeAnimation(animations);
-            });
+            var animationsCount = Random.Range(0, _animations.Count + 1);
+            var animations = _animations.Take(animationsCount).ToList();
+            return new CompositeAnimation(animations);
         }
     }
 }

@@ -7,26 +7,27 @@ namespace Physics
         private Vector3 _speed;
         private Vector3 _acceleration;
 
-        private float _cameraTopPoint;
-        private float _gravityAcceleration = 3f;
-
-        private void Start() => _acceleration = new Vector3(0, _gravityAcceleration, 0);
-
         private void Update()
         {
             Move();
-            DecreaseSpeed();
+            UpdateSpeed();
         }
         
-        public void SetGravityAcceleration(float gravityAcceleration) => _gravityAcceleration = gravityAcceleration;
+        public void SetGravityAcceleration(float gravityAcceleration)
+        {
+            if (gravityAcceleration > 0)
+            {
+                gravityAcceleration = -gravityAcceleration;
+            }
+            _acceleration = new Vector3(_acceleration.x, gravityAcceleration, _acceleration.y);
+        }
 
         public void AddSpeed(Vector3 speed) => _speed += speed;
-        public void MultiplyX(float multiplier) => _speed.x *= multiplier;
         public Vector3 GetSpeed() => _speed;
-        public float GetGravityAcceleration() => _gravityAcceleration;
+        public float GetGravityAcceleration() => _acceleration.y;
         
         private void Move() => transform.position += _speed * Time.deltaTime;
         
-        private void DecreaseSpeed() => _speed -= _acceleration * Time.deltaTime;
+        private void UpdateSpeed() => _speed += _acceleration * Time.deltaTime;
     }
 }

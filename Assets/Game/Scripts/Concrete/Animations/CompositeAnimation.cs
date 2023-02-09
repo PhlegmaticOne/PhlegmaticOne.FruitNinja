@@ -7,9 +7,9 @@ namespace Concrete.Animations
 {
     public class CompositeAnimation : ITransformAnimation
     {
-        private readonly IEnumerable<ITransformAnimation> _transformAnimations;
+        private readonly IList<ITransformAnimation> _transformAnimations;
 
-        public CompositeAnimation(IEnumerable<ITransformAnimation> transformAnimations) => 
+        public CompositeAnimation(IList<ITransformAnimation> transformAnimations) => 
             _transformAnimations = transformAnimations;
 
         public void Start(Transform transform)
