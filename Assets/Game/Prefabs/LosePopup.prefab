@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshPro: {fileID: 8664608821923041440}
+  _appendToStart: 0
   _preString: "\u041B\u0443\u0447\u0448\u0438\u0439:"
 --- !u!1 &8664608822452697775
 GameObject:
@@ -765,9 +766,8 @@ MonoBehaviour:
   _fadeDuration: 2
   _scoreText: {fileID: 8664608822719097429}
   _maxScoreText: {fileID: 7673095802981021596}
-  _buttons:
-  - {fileID: 8664608823846996862}
-  - {fileID: 8664608823783835305}
+  _restartButton: {fileID: 0}
+  _menuButton: {fileID: 0}
 --- !u!225 &8664608823138956128
 CanvasGroup:
   m_ObjectHideFlags: 0

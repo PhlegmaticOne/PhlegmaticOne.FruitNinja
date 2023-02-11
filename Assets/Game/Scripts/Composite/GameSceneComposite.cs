@@ -5,9 +5,11 @@ using Abstracts.Stages;
 using Concrete.Commands.ButtonCommands;
 using Concrete.Factories.Blocks.Base;
 using Configurations;
+using InputSystem;
 using Scenes;
 using Spawning.Spawning;
 using Spawning.Spawning.Difficulty;
+using Systems.Cutting;
 using Systems.Health;
 using Systems.Losing;
 using Systems.Score;
@@ -34,6 +36,8 @@ namespace Composite
         [SerializeField] private SceneTransition _sceneTransition;
         [SerializeField] private int _startSceneIndex;
 
+        [SerializeField] private CuttingSystem _cuttingSystem;
+
         private List<IStageable> _stageables;
         private void Awake()
         {
@@ -46,6 +50,7 @@ namespace Composite
                 new RestartCommand(_stageables),
                 new TransitToSceneCommand(_startSceneIndex, _sceneTransition),
                 new DisableCommand(_stageables));
+            _cuttingSystem.Initialize(new InputSystemFactory());
         }
 
         private void Start() => EnableAll(_stageables);

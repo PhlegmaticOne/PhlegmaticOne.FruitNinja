@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using Abstracts.Stages;
+using Entities.Base;
+using InputSystem;
 using Systems.Blocks;
 using UnityEngine;
 
@@ -7,16 +9,25 @@ namespace Systems.Cutting
 {
     public class CuttingSystem : MonoBehaviour, IStageable
     {
-        [SerializeField] private float minDistanceToSlice;
+        [SerializeField] private float _minDistanceToSlice;
         [SerializeField] private Blade _blade;
         [SerializeField] private Camera _camera;
         [SerializeField] private CuttableBlocksSystem _cuttableBlocksSystem;
         [SerializeField] private BlocksSystem _blocksSystem;
         private bool _isCutting = true;
         
+        private IInputSystem _inputSystem;
+
+        public void Initialize(IInputSystemFactory inputSystemFactory)
+        {
+            _inputSystem = inputSystemFactory.CreateInput();
+        }
+
         public void Enable() => EnableCutting();
 
         public void Disable() => DisableCutting();
+
+        private InputData _inputData;
 
         private void EnableCutting() => _isCutting = true;
         private void DisableCutting() => _isCutting = false;
@@ -27,30 +38,34 @@ namespace Systems.Cutting
             {
                 return;
             }
-            
-            if (Input.GetMouseButtonDown(0))
-            {
-                _blade.StartSlicing(GetSlicePoint());
-            }
 
-            if (Input.GetMouseButtonUp(0))
-            {
-                _blade.EndSlicing();
-            }
+            _inputData = _inputSystem.ReadInput();
 
-            if (_blade.IsSlicing)
+            switch (_inputData.InputState)
             {
-                PerformSlicing();
+                case InputState.Started:
+                    _blade.StartSlicing(GetSlicePoint());
+                    break;
+                case InputState.Ended:
+                    _blade.EndSlicing();
+                    break;
+                case InputState.Active:
+                    PerformSlicing();
+                    break;
             }
         }
 
         private void PerformSlicing()
         {
+            if (_inputData.IsValid == false)
+            {
+                return;
+            }
+            
             var slicePoint = GetSlicePoint();
-            var slicingVector = GetSlicingVector(slicePoint);
-            _blade.SliceTo(slicePoint);
+            var slicingVector = _blade.SliceTo(slicePoint);
 
-            if (slicingVector.magnitude > minDistanceToSlice)
+            if (slicingVector.magnitude > _minDistanceToSlice)
             {
                 CutBlocks(slicingVector, slicePoint);
             }
@@ -65,17 +80,21 @@ namespace Systems.Cutting
                 if (distance <= cuttableBlock.BlockInfo.Radius)
                 {
                     _blocksSystem.RemoveBlock(cuttableBlock);
-                    cuttableBlock.Cut(slicingVector, slicingPoint);
+
+                    cuttableBlock.Cut(new SliceContext
+                    {
+                        SlicingVector = slicingVector,
+                        SlicePoint = slicingPoint,
+                    });
                 }
+                
+                break;
             }
         }
 
-        private Vector2 GetSlicingVector(Vector2 newPosition) =>
-            newPosition - (Vector2)_blade.transform.position;
-
         private Vector3 GetSlicePoint()
         {
-            var position = _camera.ScreenToWorldPoint(Input.mousePosition);
+            var position = _camera.ScreenToWorldPoint(_inputData.Position);
             position.z = _camera.nearClipPlane;
             return position;
         }

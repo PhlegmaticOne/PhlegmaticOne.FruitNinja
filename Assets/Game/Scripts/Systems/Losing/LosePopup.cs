@@ -1,5 +1,6 @@
 ﻿using Abstracts.Commands;
 using DG.Tweening;
+using Helpers;
 using TMPro;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
@@ -11,7 +12,7 @@ namespace Systems.Losing
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _fadeDuration;
         [SerializeField] private TextMeshProUGUI _scoreText;
-        [SerializeField] private PretextTextMeshPro _maxScoreText;
+        [SerializeField] private AppendTextMeshPro _maxScoreText;
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _menuButton;
         public void Show(int gameScore, int maxScore)
@@ -26,10 +27,10 @@ namespace Systems.Losing
         {
             _restartButton.onClick.AddListener(() =>
             {
+                SetButtonsInteractable(false);
                 _canvasGroup.DOFade(0, _fadeDuration)
                     .OnComplete(() =>
                     {
-                        SetButtonsInteractable(false);
                         gameObject.SetActive(false);
                         command.Execute();
                     });

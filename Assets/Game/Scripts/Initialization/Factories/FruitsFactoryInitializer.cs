@@ -2,8 +2,6 @@
 using System.Linq;
 using Abstracts.Animations;
 using Abstracts.Initialization;
-using Concrete.Commands.ModelCommands;
-using Concrete.Commands.ModelCommands.Base;
 using Concrete.Commands.ViewCommands;
 using Concrete.Commands.ViewCommands.Base;
 using Concrete.Factories.Animations;
@@ -18,8 +16,6 @@ namespace Initialization.Factories
     {
         [SerializeField] 
         private List<InitializerBase<ICuttableBlockOnDestroyViewCommand>> _onDestroyViewCommands;
-        [SerializeField] 
-        private List<InitializerBase<ICuttableBlockOnDestroyCommand>> _onDestroyCommands;
         [SerializeField] private List<InitializerBase<ITransformAnimation>> _transformAnimations;
         [SerializeField] private Transform _blocksTransform;
         [SerializeField] private CuttableBlock _prefab;
@@ -27,9 +23,8 @@ namespace Initialization.Factories
         public override ICuttableBlocksFactory Create()
         {
             var animationsFactory = new AnimationsFactory(_transformAnimations.Select(x => x.Create()));
-            var onDestroyCommand = new CompositeOnDestroyCommand(_onDestroyCommands.Select(x => x.Create()).ToList());
             var onDestroyViewCommand = new CompositeDestroyViewCommand(_onDestroyViewCommands.Select(x => x.Create()).ToList());
-            return new FruitBlocksFactory(_blocksTransform, _prefab, animationsFactory, onDestroyCommand, onDestroyViewCommand);
+            return new FruitBlocksFactory(_blocksTransform, _prefab, animationsFactory, onDestroyViewCommand);
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Systems.Cutting
     {
         [SerializeField] private TrailRenderer _trailRenderer;
         public bool IsSlicing { get; private set; }
+
         public void StartSlicing(Vector3 slicePoint)
         {
             SliceTo(slicePoint);
@@ -14,11 +15,17 @@ namespace Systems.Cutting
             IsSlicing = true;
         }
 
-        public void SliceTo(Vector3 newPosition) => transform.position = newPosition;
+        public Vector3 SliceTo(Vector3 newPosition)
+        {
+            var direction = newPosition - transform.position;
+            transform.position = newPosition;
+            return direction;
+        }
 
         public void EndSlicing()
         {
             _trailRenderer.enabled = false;
+            _trailRenderer.Clear();
             IsSlicing = false;
         }
     }
