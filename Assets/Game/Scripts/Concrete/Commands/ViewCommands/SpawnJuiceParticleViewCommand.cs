@@ -23,7 +23,7 @@ namespace Concrete.Commands.ViewCommands
             module.startColor = new ParticleSystem.MinMaxGradient(entity.BlockInfo.JuiceEffectColor);
             particleSystem.transform.position = entity.transform.position;
             particleSystem.Play();
-            Object.Destroy(particleSystem.gameObject, particleSystem.main.duration);
+            Object.Destroy(particleSystem.gameObject, particleSystem.main.duration + 1);
         }
     }
 }

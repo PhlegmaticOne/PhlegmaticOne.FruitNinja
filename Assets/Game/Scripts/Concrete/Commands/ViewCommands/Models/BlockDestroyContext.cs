@@ -7,5 +7,6 @@ namespace Concrete.Commands.ViewCommands.Models
     {
         public Vector2 SlicingVector { get; set; }
         public Vector2 SlicingPoint { get; set; }
+        public float TimeSinceLastSlicing { get; set; }
     }
 }

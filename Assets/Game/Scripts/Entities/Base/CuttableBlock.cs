@@ -25,7 +25,7 @@ namespace Entities.Base
             {
                 SlicingVector = sliceContext.SlicingVector,
                 SlicingPoint = sliceContext.SlicePoint,
-                
+                TimeSinceLastSlicing = sliceContext.TimeSinceLastSlicing
             });
             PermanentDestroy();
         }
@@ -35,7 +35,6 @@ namespace Entities.Base
     {
         public Vector2 SlicePoint { get; set; }
         public Vector2 SlicingVector { get; set; }
-        
-        public int NumberInCombosSequence { get; set; }
+        public float TimeSinceLastSlicing { get; set; }
     }
 }

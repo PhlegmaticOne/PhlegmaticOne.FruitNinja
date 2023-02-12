@@ -1,5 +1,6 @@
 ﻿using Abstracts.Data;
 using Abstracts.Stages;
+using Systems.Combos;
 using Systems.Score.Models;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Systems.Score
     {
         [SerializeField] private ScoreView _currentScoreView;
         [SerializeField] private ScoreView _maxScoreView;
-
+        
         private IRepository<ScoreModel> _maxScoreRepository;
         private ScoreModel _currentMaxScore;
         private ScoreModel _currentScore;

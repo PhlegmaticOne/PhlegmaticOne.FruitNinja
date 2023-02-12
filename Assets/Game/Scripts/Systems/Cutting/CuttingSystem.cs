@@ -17,20 +17,16 @@ namespace Systems.Cutting
         private bool _isCutting = true;
         
         private IInputSystem _inputSystem;
+        private InputData _inputData;
 
         public void Initialize(IInputSystemFactory inputSystemFactory)
         {
             _inputSystem = inputSystemFactory.CreateInput();
         }
 
-        public void Enable() => EnableCutting();
+        public void Enable() => _isCutting = true;
 
-        public void Disable() => DisableCutting();
-
-        private InputData _inputData;
-
-        private void EnableCutting() => _isCutting = true;
-        private void DisableCutting() => _isCutting = false;
+        public void Disable() => _isCutting = false;
 
         private void Update()
         {
@@ -87,8 +83,6 @@ namespace Systems.Cutting
                         SlicePoint = slicingPoint,
                     });
                 }
-                
-                break;
             }
         }
 
