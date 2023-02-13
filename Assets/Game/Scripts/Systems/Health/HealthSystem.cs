@@ -13,7 +13,9 @@ namespace Systems.Health
         private int _maxHeartsCount;
 
         public event Action HealthEnded;
-
+        public int CurrentHeartsCount => _heartsCount;
+        public int MaxHeartsCount => _maxHeartsCount;
+        
         public void Initialize(HealthSystemConfiguration healthSystemConfiguration)
         {
             _healthSystemConfiguration = healthSystemConfiguration;
@@ -24,6 +26,11 @@ namespace Systems.Health
 
         public void RemoveHeart()
         {
+            if (_heartsCount == 0)
+            {
+                return;
+            }
+            
             _healthBarView.RemoveHeart();
             --_heartsCount;
             

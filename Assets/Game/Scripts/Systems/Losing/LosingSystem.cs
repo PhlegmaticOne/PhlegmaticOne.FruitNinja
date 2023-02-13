@@ -29,6 +29,11 @@ namespace Systems.Losing
 
         private void HealthSystemOnHealthEnded()
         {
+            if (_blocksSystem.BlocksCount == 0)
+            {
+                BlocksSystemOnAllBlocksFallen();    
+            }
+            
             _blocksSystem.AllBlocksFallen += BlocksSystemOnAllBlocksFallen;
             _gameLostCommand.Execute();
         }

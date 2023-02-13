@@ -1,9 +1,7 @@
-﻿using Configurations;
-
-namespace Spawning.Spawning.Difficulty
+﻿namespace Spawning.Spawning.Difficulty
 {
     public interface ISpawningDifficulty
     {
-        DifficultyInfo CalculateDifficultyInfo(int spawnIteration, SpawningSystemInfo spawningSystemInfo);
+        DifficultyInfo CalculateDifficultyInfo(int spawnIteration);
     }
 }

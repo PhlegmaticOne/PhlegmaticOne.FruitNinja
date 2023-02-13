@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Configurations
 {
-    [Serializable]
-    public class SpawningSystemInfo
+    [CreateAssetMenu(menuName = "Create spawning system info", order = 0)]
+    public class SpawningSystemInfo : ScriptableObject
     {
         [SerializeField] private MinMaxInfo<int> _blocksInPackage;
         [SerializeField] private MinMaxInfo<float> _spawnBlockInPackageIntevals;

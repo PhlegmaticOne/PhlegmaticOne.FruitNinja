@@ -1,6 +1,6 @@
 ﻿using Abstracts.Animations;
 using Abstracts.Factories;
-using Concrete.Commands.ViewCommands.Base;
+using Concrete.Commands.BlockCommands.Base;
 using Concrete.Factories.Blocks.Base;
 using Concrete.Factories.Blocks.Models;
 using Entities.Base;
@@ -12,12 +12,12 @@ namespace Concrete.Factories.Blocks
     {
         private readonly CuttableBlock _prefab;
         private readonly IFactory<ITransformAnimation> _animationsFactory;
-        private readonly ICuttableBlockOnDestroyViewCommand _onDestroyViewCommand;
+        private readonly ICuttableBlockOnDestroyCommand _onDestroyViewCommand;
         private readonly Transform _parent;
 
         public FruitBlocksFactory(Transform parent, CuttableBlock prefab,
             IFactory<ITransformAnimation> animationsFactory,
-            ICuttableBlockOnDestroyViewCommand onDestroyViewCommand)
+            ICuttableBlockOnDestroyCommand onDestroyViewCommand)
         {
             _parent = parent;
             _prefab = prefab;

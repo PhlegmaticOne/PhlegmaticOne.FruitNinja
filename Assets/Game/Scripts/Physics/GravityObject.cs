@@ -23,6 +23,7 @@ namespace Physics
         }
 
         public void AddSpeed(Vector3 speed) => _speed += speed;
+        public void SetSpeed(Vector3 speed) => _speed = speed;
         public Vector3 GetSpeed() => _speed;
         public float GetGravityAcceleration() => _acceleration.y;
         

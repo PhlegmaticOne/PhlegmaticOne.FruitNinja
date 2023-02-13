@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Configurations
 {
@@ -6,15 +7,17 @@ namespace Configurations
     public class BlockInfo : ScriptableObject
     {
         [SerializeField] private Sprite _sprite;
-        [SerializeField] private Color _juiceEffectColor;
+        [SerializeField] private Color _particleEffectColor;
         [SerializeField] private float _radius;
         [SerializeField] private int _scoreForSlicing;
         [SerializeField] private ComboBehavior _comboBehavior;
+        [SerializeField] private FallenBehaviour _fallenBehaviour;
         public Sprite Sprite => _sprite;
-        public Color JuiceEffectColor => _juiceEffectColor;
+        public Color ParticleEffectColor => _particleEffectColor;
         public float Radius => _radius;
         public int ScoreForSlicing => _scoreForSlicing;
         public ComboBehavior ComboBehavior => _comboBehavior;
+        public FallenBehaviour FallenBehaviour => _fallenBehaviour;
         public void SetSprite(Sprite sprite) => _sprite = sprite;
     }
     
@@ -22,5 +25,11 @@ namespace Configurations
     {
         Supports,
         BreaksComboSequence
+    }
+
+    public enum FallenBehaviour
+    {
+        None,
+        HealthImpact
     }
 }

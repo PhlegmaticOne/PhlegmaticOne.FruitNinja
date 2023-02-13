@@ -3,12 +3,9 @@ using Abstracts.Data;
 using Abstracts.Initialization;
 using Abstracts.Stages;
 using Concrete.Commands.ButtonCommands;
-using Concrete.Factories.Blocks.Base;
 using Configurations;
 using InputSystem;
 using Scenes;
-using Spawning.Spawning;
-using Spawning.Spawning.Difficulty;
 using Systems.Cutting;
 using Systems.Health;
 using Systems.Losing;
@@ -20,10 +17,8 @@ namespace Composite
 {
     public class GameSceneComposite : MonoBehaviour
     {
-        [SerializeField] private CuttableBlocksSpawningSystem _spawningSystem;
-        [SerializeField] private InitializerBase<ICuttableBlocksFactory> _factoryInitializer;
-        [SerializeField] private InitializerBase<ISpawningDifficulty> _difficultyInitializer;
-        
+        [SerializeField] private SpawningSystemInitializer _spawningSystemInitializer;
+
         [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private InitializerBase<IRepository<ScoreModel>> _repositoryInitalizer;
 
@@ -43,7 +38,7 @@ namespace Composite
         {
             _stageables = _stageablesInitializer.Create();
             
-            _spawningSystem.Initialize(_factoryInitializer.Create(), _difficultyInitializer.Create());
+            _spawningSystemInitializer.Initialize();
             _scoreSystem.Initialize(_repositoryInitalizer.Create());
             _healthSystem.Initialize(_healthSystemConfiguration);
             _losingSystem.Initialize(
