@@ -154,6 +154,7 @@ Transform:
   m_Children:
   - {fileID: 237664260}
   - {fileID: 1639013841}
+  - {fileID: 622619949}
   m_Father: {fileID: 1316507167}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -188,6 +189,8 @@ MonoBehaviour:
     _factoryInitializer: {fileID: 237664261}
   - _blockInfo: {fileID: 11400000, guid: 4f064cf02716d3b4eb6477437afad1e4, type: 2}
     _factoryInitializer: {fileID: 1639013842}
+  - _blockInfo: {fileID: 11400000, guid: e4ac722364a12404ea2eddbe1f970352, type: 2}
+    _factoryInitializer: {fileID: 622619950}
 --- !u!114 &48581594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1233,6 +1236,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &373901915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 373901916}
+  - component: {fileID: 373901917}
+  m_Layer: 0
+  m_Name: AddHeartCommand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &373901916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373901915}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 754993594}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &373901917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373901915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85f538cfb06a459ead701bf13a8a7183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthSystem: {fileID: 1096669734}
 --- !u!114 &385206198 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8664608823846996862, guid: 2a9804499d748204cb2024d54f86aa32, type: 3}
@@ -1462,6 +1509,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnSystemConfiguration: {fileID: 11400000, guid: 32c7aa693f021644595493db2884f226, type: 2}
   _spawnPoliciesInitializer: {fileID: 1288903584}
+--- !u!1 &622619948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 622619949}
+  - component: {fileID: 622619950}
+  m_Layer: 0
+  m_Name: HeartBonusFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &622619949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622619948}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 48581592}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &622619950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622619948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7f81502e0b4611af2a73f2f63bbb29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onDestroyViewCommands:
+  - {fileID: 1864613221}
+  - {fileID: 373901917}
+  _transformAnimations:
+  - {fileID: 478917213}
+  - {fileID: 731132073}
+  _blocksTransform: {fileID: 215502146}
+  _prefab: {fileID: 5304426624299238415, guid: a76d184e208d0b34fbba0839199aef86, type: 3}
 --- !u!1 &718415587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,6 +1675,8 @@ Transform:
   - {fileID: 916619563}
   - {fileID: 921847798}
   - {fileID: 1119843173}
+  - {fileID: 1864613220}
+  - {fileID: 373901916}
   m_Father: {fileID: 1758184163}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2535,6 +2635,8 @@ MonoBehaviour:
     _spawnPolicyInitializer: {fileID: 458522086}
   - _blockInfo: {fileID: 11400000, guid: 4f064cf02716d3b4eb6477437afad1e4, type: 2}
     _spawnPolicyInitializer: {fileID: 458522086}
+  - _blockInfo: {fileID: 11400000, guid: e4ac722364a12404ea2eddbe1f970352, type: 2}
+    _spawnPolicyInitializer: {fileID: 1948856802}
 --- !u!114 &1288903584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3504,6 +3606,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1864613219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1864613220}
+  - component: {fileID: 1864613221}
+  m_Layer: 0
+  m_Name: HeartParticleCommand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1864613220
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864613219}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 754993594}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1864613221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864613219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93ebd98a683f453299b9e8ade7626090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 8508359446212354168, guid: 8123e3d52b502eb429c55f7e39675466, type: 3}
+  _uiTransform: {fileID: 66617622}
 --- !u!1 &1918022681
 GameObject:
   m_ObjectHideFlags: 0

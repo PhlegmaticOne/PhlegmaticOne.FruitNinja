@@ -23,5 +23,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 491faf2784ee02347b1d53c4d9f98658, type: 2}
   _debufsAvailable:
   - {fileID: 11400000, guid: b883170d8a96ff1439ec8e0f064514b0, type: 2}
-  _bonusesAvailable: []
+  _bonusesAvailable:
+  - {fileID: 11400000, guid: c23069712d11d6b4a8b32e580e02ea4c, type: 2}
   _spawningSystemInfo: {fileID: 11400000, guid: 296651b65951714468f6bbe838313ae7, type: 2}

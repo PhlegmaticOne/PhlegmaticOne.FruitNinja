@@ -8,7 +8,6 @@ namespace Systems.Blocks
     public class StateCheckingBlocksSystem : MonoBehaviour, IStageable
     {
         [SerializeField] private BlocksSystem _blocksSystem;
-        [SerializeField] private Camera _camera;
         public event Action AllBlocksFallen;
         public event Action<Block> BlockFallen;
         public int BlocksCount => _blocksSystem.AllBlocksOnField.Count;
@@ -18,11 +17,6 @@ namespace Systems.Blocks
 
         private void BlockOnFallen(Block block)
         {
-            if (block.transform.position.y > _camera.orthographicSize)
-            {
-                return;
-            }
-            
             _blocksSystem.RemoveBlock(block);
             block.Fallen -= BlockOnFallen;
             block.PermanentDestroy();

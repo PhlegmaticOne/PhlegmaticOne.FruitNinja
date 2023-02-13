@@ -17,8 +17,6 @@ namespace Entities.Base
             _onDestroyViewCommand = onDestroyViewCommand;
         }
 
-        public virtual bool SupportsCombos => true;
-
         public void Cut(SliceContext sliceContext)
         {
             _onDestroyViewCommand.OnDestroy(this, new BlockDestroyContext

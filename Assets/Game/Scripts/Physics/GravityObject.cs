@@ -19,10 +19,16 @@ namespace Physics
             {
                 gravityAcceleration = -gravityAcceleration;
             }
+            OnAccelerationSetting(ref gravityAcceleration);
             _acceleration = new Vector3(_acceleration.x, gravityAcceleration, _acceleration.y);
         }
 
-        public void AddSpeed(Vector3 speed) => _speed += speed;
+        public void AddSpeed(Vector3 speed)
+        {
+            OnSpeedAdding(ref speed);
+            _speed += speed;
+        }
+
         public void SetSpeed(Vector3 speed) => _speed = speed;
         public Vector3 GetSpeed() => _speed;
         public float GetGravityAcceleration() => _acceleration.y;
@@ -30,5 +36,8 @@ namespace Physics
         private void Move() => transform.position += _speed * Time.deltaTime;
         
         private void UpdateSpeed() => _speed += _acceleration * Time.deltaTime;
+
+        protected virtual void OnAccelerationSetting(ref float acceleration) { }
+        protected virtual void OnSpeedAdding(ref Vector3 speedToAdd) { }
     }
 }

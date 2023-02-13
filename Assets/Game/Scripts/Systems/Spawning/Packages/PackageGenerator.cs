@@ -77,7 +77,7 @@ namespace Spawning.Spawning.Packages
 
         private int GetRandomBlocksCountFromPercentage(float percentage, int blocksCount)
         {
-            var maxCount = (int)Mathf.Floor(blocksCount * percentage);
+            var maxCount = (int)Mathf.Ceil(blocksCount * percentage);
             return Random.Range(0, maxCount + 1);
         }
 
