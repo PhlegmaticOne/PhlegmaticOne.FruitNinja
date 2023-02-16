@@ -13,14 +13,22 @@ MonoBehaviour:
   m_Name: SpawnConfiguration
   m_EditorClassIdentifier: 
   _fruitsAvailable:
-  - {fileID: 11400000, guid: feb4895c5c9ca1e4f9ab32bbb96ff269, type: 2}
-  - {fileID: 11400000, guid: 89e17f15050a4224f998b1fe8a2df819, type: 2}
-  - {fileID: 11400000, guid: 728dd2957df223c49bccbee8ed381d11, type: 2}
-  - {fileID: 11400000, guid: 6608631e721b1bb48ab83c97adf962b0, type: 2}
-  - {fileID: 11400000, guid: 699a81c248489d04db9dcb72197ea8ff, type: 2}
-  - {fileID: 11400000, guid: 3f998d52f928bb94fa7b8248453991ea, type: 2}
-  - {fileID: 11400000, guid: 73c7c6b6c5bc5dd4b97480d655a69410, type: 2}
-  - {fileID: 11400000, guid: 491faf2784ee02347b1d53c4d9f98658, type: 2}
+  - _fruitInfo: {fileID: 11400000, guid: feb4895c5c9ca1e4f9ab32bbb96ff269, type: 2}
+    _priority: 10
+  - _fruitInfo: {fileID: 11400000, guid: 89e17f15050a4224f998b1fe8a2df819, type: 2}
+    _priority: 10
+  - _fruitInfo: {fileID: 11400000, guid: 728dd2957df223c49bccbee8ed381d11, type: 2}
+    _priority: 10
+  - _fruitInfo: {fileID: 11400000, guid: 6608631e721b1bb48ab83c97adf962b0, type: 2}
+    _priority: 10
+  - _fruitInfo: {fileID: 11400000, guid: 699a81c248489d04db9dcb72197ea8ff, type: 2}
+    _priority: 10
+  - _fruitInfo: {fileID: 11400000, guid: 3f998d52f928bb94fa7b8248453991ea, type: 2}
+    _priority: 10
+  - _fruitInfo: {fileID: 11400000, guid: 73c7c6b6c5bc5dd4b97480d655a69410, type: 2}
+    _priority: 10
+  - _fruitInfo: {fileID: 11400000, guid: 491faf2784ee02347b1d53c4d9f98658, type: 2}
+    _priority: 10
   _debufsAvailable:
   - {fileID: 11400000, guid: b883170d8a96ff1439ec8e0f064514b0, type: 2}
   _bonusesAvailable:

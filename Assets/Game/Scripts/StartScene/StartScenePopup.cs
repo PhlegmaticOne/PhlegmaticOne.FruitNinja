@@ -20,12 +20,22 @@ namespace StartScene
 
         public void OnStartGameClickExecuteCommand(ICommand command)
         {
-            _startGameButton.onClick.AddListener(command.Execute);
+            _startGameButton.onClick.AddListener(() =>
+            {
+                DisableButtons();
+                command.Execute();
+            });
         }
 
         public void OnExitButtonClickExecuteCommand(ICommand command)
         {
             _exitButton.onClick.AddListener(command.Execute);
+        }
+
+        private void DisableButtons()
+        {
+            _exitButton.enabled = false;
+            _startGameButton.enabled = false;
         }
     }
 }

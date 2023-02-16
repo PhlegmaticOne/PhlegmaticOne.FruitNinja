@@ -38,7 +38,7 @@ namespace Spawning.Spawning.Difficulty
             var timeInterval = spawningSystemInfo.SpawnPackageIntervals.Max -
                                spawningSystemInfo.SpawnPackageIntervals.Min;
             var stage = spawnIteration * timeInterval / _maxDifficulty;
-            return spawningSystemInfo.BlocksInPackage.Max - stage;
+            return spawningSystemInfo.SpawnPackageIntervals.Max - stage;
         }
 
         private float CalculateBlocksGravity(int spawnIteration, SpawningSystemInfo spawningSystemInfo) => 

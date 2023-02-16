@@ -3,6 +3,7 @@ using DG.Tweening;
 using Helpers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using Button = UnityEngine.UI.Button;
 
 namespace Systems.Losing
@@ -13,36 +14,53 @@ namespace Systems.Losing
         [SerializeField] private float _fadeDuration;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private AppendTextMeshPro _maxScoreText;
-        [SerializeField] private Button _restartButton;
-        [SerializeField] private Button _menuButton;
+
+        [SerializeField] private AnimatedCommandButton _restartCommandButton;
+        [SerializeField] private AnimatedCommandButton _menuCommandButton;
         public void Show(int gameScore, int maxScore)
         {
             gameObject.SetActive(true);
             _scoreText.text = gameScore.ToString();
             _maxScoreText.SetText(maxScore.ToString());
-            _canvasGroup.DOFade(1, _fadeDuration).OnComplete(() => SetButtonsInteractable(true));
+            _canvasGroup.DOFade(1, _fadeDuration).OnComplete(EnableButtons);
         }
 
         public void OnRestartButtonClickedExecute(ICommand command)
         {
-            _restartButton.onClick.AddListener(() =>
+            _restartCommandButton.OnBeforeAnimation(DisableButtons);
+            
+            _restartCommandButton.OnAfterAnimation(() =>
             {
-                SetButtonsInteractable(false);
                 _canvasGroup.DOFade(0, _fadeDuration)
                     .OnComplete(() =>
                     {
-                        gameObject.SetActive(false);
                         command.Execute();
+                        gameObject.SetActive(false);
                     });
             });
         }
 
-        public void OnMenuButtonClickedExecute(ICommand command) => _menuButton.onClick.AddListener(command.Execute);
-
-        private void SetButtonsInteractable(bool interactable)
+        public void OnMenuButtonClickedExecute(ICommand command)
         {
-            _restartButton.interactable = interactable;
-            _menuButton.interactable = interactable;
+            _menuCommandButton.OnBeforeAnimation(DisableButtons);
+            
+            _menuCommandButton.OnAfterAnimation(() =>
+            {
+                gameObject.SetActive(false);
+                command.Execute();
+            });
+        }
+
+        private void DisableButtons()
+        {
+            _menuCommandButton.Disable();
+            _restartCommandButton.Disable();
+        }
+        
+        private void EnableButtons()
+        {
+            _menuCommandButton.Enable();
+            _restartCommandButton.Enable();
         }
     }
 }

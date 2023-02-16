@@ -15,7 +15,7 @@ namespace Concrete.Animations
             _minDuration = minDuration;
             _maxDuration = maxDuration;
         }
-
+        
         public void Start(Transform transform)
         {
             var duration = Random.Range(_minDuration, _maxDuration);

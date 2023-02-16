@@ -9,6 +9,7 @@ namespace Concrete.Factories.Blocks.Models
         public Block OriginalBlock { get; set; }
         public Sprite BlockNewSprite { get; set; }
         public Vector2 MultiplySpeedBy { get; set; }
-        public float Angle { get; set; }
+        public Vector2 Offset { get; set; }
+        public int Direction { get; set; }
     }
 }

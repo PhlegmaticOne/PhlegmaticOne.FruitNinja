@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Abstracts.Extensions;
+using Abstracts.Probabilities;
 using Configurations;
 using Spawning.Spawning.Difficulty;
 using Spawning.Spawning.SpawnPolicies;
@@ -41,11 +42,8 @@ namespace Spawning.Spawning.Packages
             return new BlocksPackage(result.Shuffle());
         }
 
-        private BlockInfo GetRandomFruit()
-        {
-            var rnd = Random.Range(0, _spawnSystemConfiguration.FruitsAvailable.Count);
-            return _spawnSystemConfiguration.FruitsAvailable[rnd];
-        }
+        private BlockInfo GetRandomFruit() => 
+            _spawnSystemConfiguration.FruitsAvailable.GetRandomItemBasedOnProbabilities().FruitInfo;
 
         private void TryAddExtraBlocks(List<PackageEntry> blocksPackage, int blocksInPackage,
             List<ExtraBlockConfiguration> blockConfigurations)
