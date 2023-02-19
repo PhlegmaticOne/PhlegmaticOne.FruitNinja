@@ -1,13 +1,12 @@
-﻿using DG.Tweening.Plugins;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Physics
 {
     public abstract class GravityObject : MonoBehaviour
     {
-        private readonly float _baseAcceleration = 8f;
+        private static readonly float _baseAcceleration = 8f;
         private Vector3 _speed;
-        private Vector3 _acceleration;
+        [SerializeField] private Vector3 _acceleration;
 
         private void Update()
         {

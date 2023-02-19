@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: 21300000, guid: 027874954ca3f3a47aad838bb5045987, type: 3}
   _particleEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  _radius: 2
+  _radius: 1.1
   _scoreForSlicing: 0
   _comboBehavior: 2
   _fallenBehaviour: 0

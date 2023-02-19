@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: IceBonusConfiguration
   m_EditorClassIdentifier: 
   _blockInfo: {fileID: 11400000, guid: 29a2431ac9e3d9b4495c7479b6245e1a, type: 2}
-  _spawnInPackageProbability: 0.2
+  _spawnInPackageProbability: 0.16
   _spawnCountInPackagePercentage: 0.1

@@ -2,7 +2,6 @@
 using Abstracts.Stages;
 using Entities.Base;
 using InputSystem;
-using Systems.Blocks;
 using UnityEngine;
 
 namespace Systems.Follow
@@ -10,41 +9,53 @@ namespace Systems.Follow
     public class FollowSystem : MonoBehaviour, IStageable
     {
         private IInputSystem _inputSystem;
-        private BlocksSystem _blocksSystem;
         private readonly List<Block> _blocks = new List<Block>();
 
         private Camera _camera;
         private Coroutine _followCoroutine;
 
-        public void Initialize(BlocksSystem blocksSystem, IInputSystem inputSystem, Camera cam)
+        public void Initialize(IInputSystem inputSystem, Camera cam)
         {
             _inputSystem = inputSystem;
-            _blocksSystem = blocksSystem;
             _camera = cam;
         }
+
+        public void Enable()
+        {
+            _inputSystem.Ended += InputSystemOnEnded;
+            _inputSystem.Moved += InputSystemOnMoved;
+        }
         
-        public void Enable() { }
 
         public void Disable()
         {
+            _inputSystem.Ended -= InputSystemOnEnded;
+            _inputSystem.Moved -= InputSystemOnMoved;
+            
             foreach (var block in _blocks)
             {
-                _blocksSystem.RemoveBlock(block);
-                block.PermanentDestroy();
+                DestroyBlock(block);
             }
+            
             _blocks.Clear();
         }
         
         public void Follow(Block block)
         {
-            _inputSystem.Ended += InputSystemOnEnded;
-            _inputSystem.Moved += InputSystemOnMoved;
+            block.Fallen += BlockOnFallen;
             block.DisableGravity();
             _blocks.Add(block);
         }
 
+        private void BlockOnFallen(Block obj) => DestroyBlock(obj);
+
         private void InputSystemOnMoved(Vector3 position)
         {
+            if (_blocks.Count == 0)
+            {
+                return;
+            }
+            
             foreach (var block in _blocks)
             {
                 block.transform.position = GetPosition(position);
@@ -53,15 +64,16 @@ namespace Systems.Follow
 
         private void InputSystemOnEnded()
         {
-            _inputSystem.Ended -= InputSystemOnEnded;
-            _inputSystem.Moved -= InputSystemOnMoved;
-
+            if (_blocks.Count == 0)
+            {
+                return;
+            }
+            
             foreach (var block in _blocks)
             {
                 block.EnableDefaultGravity();
-                _blocksSystem.AddBlock(block);
             }
-            
+
             _blocks.Clear();
         }
 
@@ -72,6 +84,10 @@ namespace Systems.Follow
             return position;
         }
 
-       
+        private void DestroyBlock(Block block)
+        {
+            block.Fallen -= BlockOnFallen;
+            block.PermanentDestroy();
+        }
     }
 }

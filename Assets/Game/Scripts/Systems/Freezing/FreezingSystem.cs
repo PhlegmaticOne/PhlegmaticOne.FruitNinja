@@ -26,6 +26,7 @@ namespace Systems.Freezing
         public void Disable()
         {
             TryStopRoutine();
+            GlobalInitialForce.Value = 1;
             _canvas.gameObject.SetActive(false);
         }
 
