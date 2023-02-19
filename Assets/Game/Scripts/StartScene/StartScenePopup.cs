@@ -12,6 +12,7 @@ namespace StartScene
         [SerializeField] private Button _startGameButton;
         [SerializeField] private Button _exitButton;
         [SerializeField] private TextMeshProUGUI _scoreText;
+        [SerializeField] private CanvasGroup _canvasGroup;
 
         public void Initialize(IRepository<ScoreModel> scoreRepository)
         {
@@ -34,8 +35,7 @@ namespace StartScene
 
         private void DisableButtons()
         {
-            _exitButton.enabled = false;
-            _startGameButton.enabled = false;
+            _canvasGroup.interactable = false;
         }
     }
 }

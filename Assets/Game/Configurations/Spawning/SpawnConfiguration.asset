@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8fcc04d02944a43b048a1df003d0026, type: 3}
   m_Name: SpawnConfiguration
   m_EditorClassIdentifier: 
+  _blocksInPackage:
+    _min: 2
+    _max: 5
+  _spawnBlockInPackageIntevals:
+    _min: 0
+    _max: 1
+  _spawnPackageIntervals:
+    _min: 1
+    _max: 2.5
+  _initialBlockGravity: 8
   _fruitsAvailable:
   - _fruitInfo: {fileID: 11400000, guid: feb4895c5c9ca1e4f9ab32bbb96ff269, type: 2}
     _priority: 10
@@ -31,6 +41,10 @@ MonoBehaviour:
     _priority: 10
   _debufsAvailable:
   - {fileID: 11400000, guid: b883170d8a96ff1439ec8e0f064514b0, type: 2}
+  - {fileID: 11400000, guid: 003f29c7189c5ba4d8d1e8bfe48970d9, type: 2}
   _bonusesAvailable:
   - {fileID: 11400000, guid: c23069712d11d6b4a8b32e580e02ea4c, type: 2}
-  _spawningSystemInfo: {fileID: 11400000, guid: 296651b65951714468f6bbe838313ae7, type: 2}
+  - {fileID: 11400000, guid: 785febb17f4fe524caecd4264b3d2601, type: 2}
+  - {fileID: 11400000, guid: 8e3d626c18d0502459d57c6f2aa78242, type: 2}
+  - {fileID: 11400000, guid: befc4ab65a1064947b84f404ef6291c9, type: 2}
+  - {fileID: 11400000, guid: 061d0f29c28ff4249897b9241e8a9706, type: 2}

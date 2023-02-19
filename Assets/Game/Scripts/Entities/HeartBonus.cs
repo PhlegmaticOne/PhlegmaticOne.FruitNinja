@@ -1,12 +1,17 @@
-﻿using UnityEngine;
+﻿using Configurations.Blocks;
+using Entities.Base;
+using UnityEngine;
 
-namespace Entities.Base
+namespace Entities
 {
     public class HeartBonus : CuttableBlock
     {
-        [SerializeField] private float _multiplyAcceleartionBy;
-        [SerializeField] private float _multiplySpeedBy;
-        protected override void OnAccelerationSetting(ref float acceleration) => acceleration *= _multiplyAcceleartionBy;
-        protected override void OnSpeedAdding(ref Vector3 speedToAdd) => speedToAdd *= _multiplySpeedBy;
+        [SerializeField] private HealthBonusConfiguration _heartBonusConfiguration;
+        public override IBlockConfiguration BlockConfiguration => _heartBonusConfiguration;
+        
+        protected override void OnAccelerationSetting(ref float acceleration) => 
+            acceleration *= _heartBonusConfiguration.MultiplyAccelerationBy;
+        protected override void OnSpeedAdding(ref Vector3 speedToAdd) => 
+            speedToAdd *= _heartBonusConfiguration.MultiplySpeedBy;
     }
 }

@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using DG.Tweening.Plugins;
+using UnityEngine;
 
 namespace Physics
 {
     public abstract class GravityObject : MonoBehaviour
     {
+        private readonly float _baseAcceleration = 8f;
         private Vector3 _speed;
         private Vector3 _acceleration;
 
@@ -20,7 +22,7 @@ namespace Physics
                 gravityAcceleration = -gravityAcceleration;
             }
             OnAccelerationSetting(ref gravityAcceleration);
-            _acceleration = new Vector3(_acceleration.x, gravityAcceleration, _acceleration.y);
+            _acceleration = new Vector3(_acceleration.x, gravityAcceleration, _acceleration.z);
         }
 
         public void AddSpeed(Vector3 speed)
@@ -28,6 +30,9 @@ namespace Physics
             OnSpeedAdding(ref speed);
             _speed += speed;
         }
+
+        public void DisableGravity() => SetGravityAcceleration(0);
+        public void EnableDefaultGravity() => SetGravityAcceleration(_baseAcceleration);
 
         public void SetSpeed(Vector3 speed) => _speed = speed;
         public Vector3 GetSpeed() => _speed;

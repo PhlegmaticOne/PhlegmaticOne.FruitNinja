@@ -1,4 +1,5 @@
-﻿using Abstracts.Stages;
+﻿using System.Collections;
+using Abstracts.Stages;
 using Configurations;
 using Entities.Base;
 using Systems.Blocks;
@@ -8,8 +9,28 @@ namespace Systems.Health
 {
     public class HealthController : MonoBehaviour, IStageable
     {
-        [SerializeField] private HealthSystem _healthSystem;
-        [SerializeField] private StateCheckingBlocksSystem _stateCheckingBlocksSystem;
+        private bool _isRemoving;
+        private HealthSystem _healthSystem;
+        private StateCheckingBlocksSystem _stateCheckingBlocksSystem;
+
+        public void Initialize(HealthSystem healthSystem, StateCheckingBlocksSystem stateCheckingBlocksSystem)
+        {
+            _healthSystem = healthSystem;
+            _stateCheckingBlocksSystem = stateCheckingBlocksSystem;
+            _isRemoving = true;
+        }
+
+        public void DisableHeartRemoving(float time)
+        {
+            StartCoroutine(DisableHeartRemovingRoutine(time));
+        }
+
+        private IEnumerator DisableHeartRemovingRoutine(float time)
+        {
+            _isRemoving = false;
+            yield return new WaitForSeconds(time);
+            _isRemoving = true;
+        }
         
         public void Enable()
         {
@@ -21,7 +42,9 @@ namespace Systems.Health
 
         private void StateCheckingBlocksSystemOnBlockFallen(Block obj)
         {
-            if (obj is CuttableBlock cuttableBlock && cuttableBlock.BlockInfo.FallenBehaviour == FallenBehaviour.HealthImpact)
+            if (obj is CuttableBlock cuttableBlock && 
+                cuttableBlock.BlockInfo.FallenBehaviour == FallenBehaviour.HealthImpact && 
+                _isRemoving)
             {
                 _healthSystem.RemoveHeart();
             }

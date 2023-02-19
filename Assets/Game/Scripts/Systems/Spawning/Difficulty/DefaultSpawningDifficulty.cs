@@ -1,4 +1,5 @@
 ﻿using Configurations;
+using Configurations.Spawning;
 
 namespace Spawning.Spawning.Difficulty
 {
@@ -6,9 +7,9 @@ namespace Spawning.Spawning.Difficulty
     {
         private readonly int _maxDifficulty;
         private readonly int _maxGravityIncrease;
-        private readonly SpawningSystemInfo _spawningSystemInfo;
+        private readonly SpawnSystemConfiguration _spawningSystemInfo;
 
-        public DefaultSpawningDifficulty(int maxDifficulty, int maxGravityIncrease, SpawningSystemInfo spawningSystemInfo)
+        public DefaultSpawningDifficulty(int maxDifficulty, int maxGravityIncrease, SpawnSystemConfiguration spawningSystemInfo)
         {
             _maxDifficulty = maxDifficulty;
             _maxGravityIncrease = maxGravityIncrease;
@@ -22,18 +23,21 @@ namespace Spawning.Spawning.Difficulty
             {
                 BlocksGravity = CalculateBlocksGravity(iteration, _spawningSystemInfo),
                 BlocksInPackageCount = CalculateBlocksInPackageCount(iteration, _spawningSystemInfo),
-                TimeToNextBlockPackage = CalculateTimeToNextPackage(iteration, _spawningSystemInfo)
+                TimeToNextBlockPackage = CalculateTimeToNextPackage(iteration, _spawningSystemInfo),
+                DecreaseBlocksInPackageIntervalsBy = 1,
+                TotalBonusesSpawnPercentage = 1,
+                TotalDebufsSpawnPercentage = 1
             };
         }
 
-        private int CalculateBlocksInPackageCount(int spawnIteration, SpawningSystemInfo spawningSystemInfo)
+        private int CalculateBlocksInPackageCount(int spawnIteration, SpawnSystemConfiguration spawningSystemInfo)
         {
             var stagesCount = spawningSystemInfo.BlocksInPackage.Max - spawningSystemInfo.BlocksInPackage.Min;
             var stage = spawnIteration * stagesCount / _maxDifficulty;
             return spawningSystemInfo.BlocksInPackage.Min + stage;
         }
 
-        private float CalculateTimeToNextPackage(int spawnIteration, SpawningSystemInfo spawningSystemInfo)
+        private float CalculateTimeToNextPackage(int spawnIteration, SpawnSystemConfiguration spawningSystemInfo)
         {
             var timeInterval = spawningSystemInfo.SpawnPackageIntervals.Max -
                                spawningSystemInfo.SpawnPackageIntervals.Min;
@@ -41,7 +45,7 @@ namespace Spawning.Spawning.Difficulty
             return spawningSystemInfo.SpawnPackageIntervals.Max - stage;
         }
 
-        private float CalculateBlocksGravity(int spawnIteration, SpawningSystemInfo spawningSystemInfo) => 
+        private float CalculateBlocksGravity(int spawnIteration, SpawnSystemConfiguration spawningSystemInfo) => 
             spawningSystemInfo.InitialBlockGravity + (float)(_maxGravityIncrease * spawnIteration) / _maxDifficulty;
     }
 }

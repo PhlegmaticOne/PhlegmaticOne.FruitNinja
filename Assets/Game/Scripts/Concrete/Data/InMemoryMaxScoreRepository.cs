@@ -1,7 +1,7 @@
 ﻿using Abstracts.Data;
 using Systems.Score.Models;
 
-namespace Game.Scripts.Concrete.Data
+namespace Concrete.Data
 {
     public class InMemoryMaxScoreRepository : IRepository<ScoreModel>
     {

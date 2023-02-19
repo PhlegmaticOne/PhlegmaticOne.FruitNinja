@@ -1,6 +1,5 @@
 ﻿using System;
-using Configurations;
-using Game.Scripts.Systems.Health;
+using Configurations.Systems;
 using UnityEngine;
 
 namespace Systems.Health

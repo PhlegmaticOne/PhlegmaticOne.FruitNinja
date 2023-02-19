@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Configurations.Systems;
+using UnityEngine;
 
 namespace Systems.Combos
 {
@@ -10,6 +11,12 @@ namespace Systems.Combos
 
         private float _timeSinceLastCombo;
         private int _currentComboCount;
+
+        public void Initialize(ComboSystemConfiguration comboSystemConfiguration)
+        {
+            _maxComboDelay = comboSystemConfiguration.MaxComboDelay;
+            _maxComboCount = comboSystemConfiguration.MaxComboCount;
+        }
 
         public int TryAddCombo(Vector3 position)
         {

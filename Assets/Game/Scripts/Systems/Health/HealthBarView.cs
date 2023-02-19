@@ -3,7 +3,7 @@ using Systems.Health;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Scripts.Systems.Health
+namespace Systems.Health
 {
     public class HealthBarView : MonoBehaviour
     {

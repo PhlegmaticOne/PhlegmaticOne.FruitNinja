@@ -1,10 +1,9 @@
 ﻿using Concrete.Commands.BlockCommands.Base;
-using Concrete.Commands.ViewCommands.Models;
-using DG.Tweening;
+using Concrete.Commands.BlockCommands.Models;
 using Entities.Base;
 using UnityEngine;
 
-namespace Concrete.Commands.ViewCommands
+namespace Concrete.Commands.BlockCommands
 {
     public class SpawnParticleCommand : ICuttableBlockOnDestroyCommand
     {

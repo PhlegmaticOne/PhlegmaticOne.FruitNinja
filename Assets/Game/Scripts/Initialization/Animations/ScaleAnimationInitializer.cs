@@ -1,6 +1,7 @@
 ﻿using Abstracts.Animations;
 using Abstracts.Initialization;
 using Concrete.Animations;
+using Configurations.Animations;
 using Configurations.Base;
 using UnityEngine;
 
@@ -8,9 +9,12 @@ namespace Initialization.Animations
 {
     public class ScaleAnimationInitializer : InitializerBase<ITransformAnimation>
     {
-        [SerializeField] private MinMaxInfo<float> _scaleRange;
-        [SerializeField] private MinMaxInfo<float> _durationRange;
+        [SerializeField] private ScaleAnimationConfiguration _scaleAnimationConfiguration;
         public override ITransformAnimation Create() => 
-            new ScaleAnimation(_scaleRange.Min, _scaleRange.Max, _durationRange.Min, _durationRange.Max);
+            new ScaleAnimation(
+                _scaleAnimationConfiguration.ScaleRange.Min,
+                _scaleAnimationConfiguration.ScaleRange.Max,
+                _scaleAnimationConfiguration.DurationRange.Min,
+                _scaleAnimationConfiguration.DurationRange.Max);
     }
 }

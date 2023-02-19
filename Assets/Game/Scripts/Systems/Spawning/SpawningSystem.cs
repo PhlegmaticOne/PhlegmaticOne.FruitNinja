@@ -4,6 +4,7 @@ using Abstracts.Probabilities;
 using Abstracts.Stages;
 using Concrete.Factories.Blocks.Models;
 using Configurations;
+using Configurations.Spawning;
 using Spawning.Spawning.Difficulty;
 using Spawning.Spawning.Packages;
 using Spawning.Spawning.Spawners;
@@ -51,6 +52,19 @@ namespace Spawning.Spawning
                 
                 spawnIterations++;
             }
+        }
+
+        public void ChangeSpawnDifficulty(ISpawningDifficulty spawningDifficulty, float time)
+        {
+            StartCoroutine(ChangeDifficulty(spawningDifficulty, time));
+        }
+
+        private IEnumerator ChangeDifficulty(ISpawningDifficulty spawningDifficulty, float time)
+        {
+            var current = _spawningDifficulty;
+            _spawningDifficulty = spawningDifficulty;
+            yield return new WaitForSeconds(time);
+            _spawningDifficulty = current;
         }
 
         private IEnumerator SpawnPackage(DifficultyInfo difficultyInfo)

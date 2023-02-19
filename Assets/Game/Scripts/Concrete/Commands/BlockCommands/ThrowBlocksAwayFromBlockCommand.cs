@@ -1,11 +1,10 @@
 ﻿using Concrete.Commands.BlockCommands.Base;
-using Concrete.Commands.ViewCommands.Models;
+using Concrete.Commands.BlockCommands.Models;
 using Entities.Base;
-using Initialization.BlockCommands;
 using Systems.Blocks;
 using UnityEngine;
 
-namespace Concrete.Commands.ViewCommands
+namespace Concrete.Commands.BlockCommands
 {
     public class ThrowBlocksAwayFromBlockCommand : ICuttableBlockOnDestroyCommand
     {
@@ -25,27 +24,28 @@ namespace Concrete.Commands.ViewCommands
             foreach (var block in _blocksSystem.AllBlocksOnField)
             {
                 var direction = block.transform.position - destroyingBlockPosition;
-                float colliderPoint = direction.magnitude;
+                var colliderPoint = direction.magnitude;
                 var radius = _explosionParameters.ExplosionRadius;
                 if (colliderPoint <= radius)
                 {
-                    float newExplosionSpeed = (radius - colliderPoint) / radius * _explosionParameters.ExplosionPower;
-                    float xSpeed = (direction.x) * newExplosionSpeed;
-                    float ySpeed = (direction.y) * newExplosionSpeed;
+                    var newExplosionSpeed = (radius - colliderPoint) / radius * _explosionParameters.ExplosionPower;
+                    var xSpeed = direction.x * newExplosionSpeed;
+                    var ySpeed = direction.y * newExplosionSpeed;
                     block.AddSpeed(new Vector3(xSpeed, ySpeed));
                 }
             }
         }
+    }
 
-        private Vector3 GetSpeed(Vector3 from, Vector3 to)
+    public class ExplosionParameters
+    {
+        public ExplosionParameters(float explosionRadius, float explosionPower)
         {
-            var direction = from - to;
-            var radius = _explosionParameters.ExplosionRadius;
-            var newExplosionSpeed = (radius - direction.magnitude) / radius * _explosionParameters.ExplosionPower;
-            
-            float xSpeed = (direction.x) * newExplosionSpeed;
-            float ySpeed = (direction.y) * newExplosionSpeed;
-            return new Vector3(xSpeed, ySpeed);
+            ExplosionRadius = explosionRadius;
+            ExplosionPower = explosionPower;
         }
+
+        public float ExplosionPower { get; }
+        public float ExplosionRadius { get; }
     }
 }

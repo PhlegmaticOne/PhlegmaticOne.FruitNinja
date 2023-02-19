@@ -2,6 +2,7 @@
 using Abstracts.Extensions;
 using Abstracts.Probabilities;
 using Configurations;
+using Configurations.Spawning;
 using Spawning.Spawning.Difficulty;
 using Spawning.Spawning.SpawnPolicies;
 using UnityEngine;
@@ -10,32 +11,31 @@ namespace Spawning.Spawning.Packages
 {
     public class PackageGenerator : IPackageGenerator
     {
-        private readonly SpawnSystemConfiguration _spawnSystemConfiguration;
         private readonly ISpawnPoliciesProvider _spawnPoliciesProvider;
-        private readonly SpawningSystemInfo _spawningSystemInfo;
+        private readonly SpawnSystemConfiguration _spawnSystemConfiguration;
 
         public PackageGenerator(SpawnSystemConfiguration spawnSystemConfiguration, 
             ISpawnPoliciesProvider spawnPoliciesProvider)
         {
             _spawnSystemConfiguration = spawnSystemConfiguration;
             _spawnPoliciesProvider = spawnPoliciesProvider;
-            _spawningSystemInfo = spawnSystemConfiguration.SpawningSystemInfo;
         }
         
         public BlocksPackage GeneratePackage(DifficultyInfo difficultyInfo)
         {
             var result = new List<PackageEntry>();
+
+            TryAddExtraBlocks(result, difficultyInfo, difficultyInfo.TotalDebufsSpawnPercentage, _spawnSystemConfiguration.DebufsAvailable);
+            TryAddExtraBlocks(result, difficultyInfo, difficultyInfo.TotalBonusesSpawnPercentage, _spawnSystemConfiguration.BonusesAvailable);
+
             var blocksInPackage = difficultyInfo.BlocksInPackageCount;
             
-            TryAddExtraBlocks(result, blocksInPackage, _spawnSystemConfiguration.DebufsAvailable);
-            TryAddExtraBlocks(result, blocksInPackage, _spawnSystemConfiguration.BonusesAvailable);
-
             while (result.Count <  blocksInPackage)
             {
                 result.Add(new PackageEntry
                 {
                     BlockInfo = GetRandomFruit(),
-                    TimeToNextBlock = GetRandomTimeToNextBlock()
+                    TimeToNextBlock = GetRandomTimeToNextBlock(difficultyInfo)
                 });
             }
             
@@ -45,14 +45,23 @@ namespace Spawning.Spawning.Packages
         private BlockInfo GetRandomFruit() => 
             _spawnSystemConfiguration.FruitsAvailable.GetRandomItemBasedOnProbabilities().FruitInfo;
 
-        private void TryAddExtraBlocks(List<PackageEntry> blocksPackage, int blocksInPackage,
+        private void TryAddExtraBlocks(List<PackageEntry> blocksPackage, 
+            DifficultyInfo difficultyInfo,
+            float totalSpawnPercentage,
             List<ExtraBlockConfiguration> blockConfigurations)
         {
+            var blocksInPackage = difficultyInfo.BlocksInPackageCount;
+            
             foreach (var extraBlockInfo in blockConfigurations)
             {
                 var blockInfo = extraBlockInfo.BlockInfo;
+
+                if (ProbabilityMatches(totalSpawnPercentage) == false)
+                {
+                    continue;
+                }
                 
-                if (ProbabilityMatches(extraBlockInfo.SpawnInPackageProbability) ||
+                if (ProbabilityMatches(extraBlockInfo.SpawnInPackageProbability) == false ||
                     _spawnPoliciesProvider.CanSpawn(blockInfo) == false)
                 {
                     continue;
@@ -66,7 +75,7 @@ namespace Spawning.Spawning.Packages
                     blocksPackage.Add(new PackageEntry
                     {
                         BlockInfo = blockInfo,
-                        TimeToNextBlock = GetRandomTimeToNextBlock()
+                        TimeToNextBlock = GetRandomTimeToNextBlock(difficultyInfo)
                     });
                     randomBlocksCount--;
                 }
@@ -79,13 +88,13 @@ namespace Spawning.Spawning.Packages
             return Random.Range(0, maxCount + 1);
         }
 
-        private float GetRandomTimeToNextBlock()
+        private float GetRandomTimeToNextBlock(DifficultyInfo difficultyInfo)
         {
             return Random.Range(
-                _spawningSystemInfo.SpawnBlockInPackageIntervals.Min,
-                _spawningSystemInfo.SpawnBlockInPackageIntervals.Max);
+                _spawnSystemConfiguration.SpawnBlockInPackageIntervals.Min,
+                _spawnSystemConfiguration.SpawnBlockInPackageIntervals.Max) / difficultyInfo.DecreaseBlocksInPackageIntervalsBy;
         }
 
-        private bool ProbabilityMatches(float probability) => Random.value >= probability;
+        private bool ProbabilityMatches(float probability) => Random.value <= probability;
     }
 }

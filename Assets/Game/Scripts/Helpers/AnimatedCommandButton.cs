@@ -26,12 +26,19 @@ namespace Helpers
             });
         }
 
-        public void Disable() => _button.enabled = false;
-        public void Enable() => _button.enabled = true;
+        public void Disable()
+        {
+            _button.enabled = false;
+        }
+
+        public void Enable()
+        {
+            _button.enabled = true;
+        }
 
         public void OnHighlighting()
         {
-            if (_isPlaying == false)
+            if (_isPlaying == false && _button.enabled)
             {
                 _animator.SetTrigger(_animatedCommandButtonAnimationParameters.HighlightedStateName);
             }

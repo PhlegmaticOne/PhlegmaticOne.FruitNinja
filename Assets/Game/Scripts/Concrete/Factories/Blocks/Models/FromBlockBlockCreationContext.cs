@@ -11,5 +11,6 @@ namespace Concrete.Factories.Blocks.Models
         public Vector2 MultiplySpeedBy { get; set; }
         public Vector2 Offset { get; set; }
         public int Direction { get; set; }
+        public float Scale { get; set; }
     }
 }

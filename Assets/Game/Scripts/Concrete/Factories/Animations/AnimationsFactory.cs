@@ -2,7 +2,8 @@
 using System.Linq;
 using Abstracts.Animations;
 using Abstracts.Factories;
-using Concrete.Animations;
+using DG.Tweening;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Concrete.Factories.Animations
@@ -25,6 +26,25 @@ namespace Concrete.Factories.Animations
             var animationsCount = Random.Range(0, _animations.Count + 1);
             var animations = _animations.Take(animationsCount).ToList();
             return new CompositeAnimation(animations);
+        }
+        
+        
+        private class CompositeAnimation : ITransformAnimation
+        {
+            private readonly IList<ITransformAnimation> _transformAnimations;
+
+            public CompositeAnimation(IList<ITransformAnimation> transformAnimations) => 
+                _transformAnimations = transformAnimations;
+
+            public void Start(Transform transform)
+            {
+                foreach (var animation in _transformAnimations)
+                {
+                    animation.Start(transform);
+                }
+            }
+
+            public void Stop(Transform transform) => transform.DOKill();
         }
     }
 }

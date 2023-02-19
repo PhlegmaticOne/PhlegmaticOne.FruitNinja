@@ -1,5 +1,6 @@
 ﻿using Abstracts.Commands;
 using Abstracts.Stages;
+using Configurations.Systems;
 using Systems.Blocks;
 using Systems.Health;
 using Systems.Score;
@@ -9,12 +10,30 @@ namespace Systems.Losing
 {
     public class LosingSystem : MonoBehaviour, IStageable
     {
-        [SerializeField] private HealthSystem _healthSystem;
-        [SerializeField] private StateCheckingBlocksSystem _blocksSystem;
-        [SerializeField] private ScoreSystem _scoreSystem;
-        [SerializeField] private LosePopup _losePopup;
-
+        private HealthSystem _healthSystem;
+        private StateCheckingBlocksSystem _blocksSystem;
+        private ScoreSystem _scoreSystem;
+        private LosePopup _losePopup;
         private ICommand _gameLostCommand;
+
+        public void Initialize(LosingSystemConfiguration losingSystemConfiguration,
+            LosePopup losePopup,
+            //Transform popupTransform,
+            Camera cam,
+            HealthSystem healthSystem,
+            StateCheckingBlocksSystem stateCheckingBlocksSystem,
+            ScoreSystem scoreSystem,
+            ICommand gameLostCommand,
+            ICommand restartCommand,
+            ICommand menuCommand)
+        {
+            _losePopup = losePopup;
+            _losePopup.Initialize(losingSystemConfiguration.PopupAnimationDuration, cam, restartCommand, menuCommand);
+            _blocksSystem = stateCheckingBlocksSystem;
+            _scoreSystem = scoreSystem;
+            _healthSystem = healthSystem;
+            _gameLostCommand = gameLostCommand;
+        }
 
         public void Initialize(ICommand restartCommand, ICommand menuCommand, ICommand gameLostCommand)
         {

@@ -19,5 +19,11 @@ namespace Abstracts.Extensions
 
             return list;
         }
+
+        public static T RandomItem<T>(this List<T> list)
+        {
+            var index = rng.Next(0, list.Count);
+            return list[index];
+        }
     }
 }

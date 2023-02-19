@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6008a5e08c2c442b9aae30b501233653, type: 3}
+  m_Name: HeartBonusConfiguration
+  m_EditorClassIdentifier: 
+  _multiplyAcceleartionBy: 2
+  _multiplySpeedBy: 1.5
+  _heartsToGive: 1
+  _onDestroyParticle: {fileID: 8508359446212354168, guid: 8123e3d52b502eb429c55f7e39675466, type: 3}

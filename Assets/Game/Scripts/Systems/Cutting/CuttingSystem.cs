@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using Abstracts.Stages;
+using Configurations.Systems;
 using Entities.Base;
 using InputSystem;
 using Systems.Blocks;
@@ -9,28 +11,62 @@ namespace Systems.Cutting
 {
     public class CuttingSystem : MonoBehaviour, IStageable
     {
-        [SerializeField] private float _minDistanceToSlice;
-        [SerializeField] private Blade _blade;
-        [SerializeField] private Camera _camera;
-        [SerializeField] private CuttableBlocksSystem _cuttableBlocksSystem;
-        [SerializeField] private BlocksSystem _blocksSystem;
-        private bool _isCutting = true;
-        
+        private float _minSpeedToSlice;
+        private Blade _blade;
+        private Camera _camera;
+        private FilteringBlocksSystem _cuttableBlocksSystem;
+        private BlocksSystem _blocksSystem;
         private IInputSystem _inputSystem;
+        
         private InputData _inputData;
+        private bool _isCuttingEnabled;
+        private bool _isInputEnabled;
 
-        public void Initialize(IInputSystemFactory inputSystemFactory)
+        public void Initialize(CuttingSystemConfiguration cuttingSystemConfiguration,
+            IInputSystemFactory inputSystemFactory,
+            Transform bladeTransform,
+            Camera cam,
+            FilteringBlocksSystem cuttableBlocksSystem,
+            BlocksSystem blocksSystem)
         {
+            _blade = Instantiate(cuttingSystemConfiguration.Blade, bladeTransform);
+            _minSpeedToSlice = cuttingSystemConfiguration.MinSpeedToSlice;
+            _camera = cam;
+            _cuttableBlocksSystem = cuttableBlocksSystem;
+            _blocksSystem = blocksSystem;
             _inputSystem = inputSystemFactory.CreateInput();
+            _isCuttingEnabled = true;
+            _isInputEnabled = true;
+            _inputData = new InputData(Vector3.zero, InputState.None, false);
         }
 
-        public void Enable() => _isCutting = true;
+        public void DisableCutting(float time)
+        {
+            _isCuttingEnabled = false;
+            StartCoroutine(EnableCuttingAfter(time));
+        }
 
-        public void Disable() => _isCutting = false;
+        private IEnumerator EnableCuttingAfter(float time)
+        {
+            yield return new WaitForSeconds(time);
+            _isCuttingEnabled = true;
+        }
+        
+        public void Enable()
+        {
+            _isCuttingEnabled = true;
+            _isInputEnabled = true;
+        }
+
+        public void Disable()
+        {
+            _isCuttingEnabled = false;
+            _isInputEnabled = false;
+        }
 
         private void Update()
         {
-            if (_isCutting == false)
+            if (_isInputEnabled == false)
             {
                 return;
             }
@@ -45,10 +81,12 @@ namespace Systems.Cutting
                 case InputState.Ended:
                     _blade.EndSlicing();
                     break;
-                case InputState.Active:
-                    PerformSlicing();
-                    break;
             }
+        }
+
+        private void FixedUpdate()
+        {
+            PerformSlicing();
         }
 
         private void PerformSlicing()
@@ -61,7 +99,14 @@ namespace Systems.Cutting
             var slicePoint = GetSlicePoint();
             var slicingVector = _blade.SliceTo(slicePoint);
 
-            if (slicingVector.magnitude > _minDistanceToSlice)
+            if (_isCuttingEnabled == false)
+            {
+                return;
+            }
+
+            var speed = slicingVector.magnitude / Time.fixedDeltaTime;
+            
+            if (speed > _minSpeedToSlice)
             {
                 CutBlocks(slicingVector, slicePoint);
             }
@@ -69,7 +114,7 @@ namespace Systems.Cutting
 
         private void CutBlocks(Vector2 slicingVector, Vector2 slicingPoint)
         {
-            foreach (var cuttableBlock in _cuttableBlocksSystem.CuttableBlocksOnField.ToList())
+            foreach (var cuttableBlock in _cuttableBlocksSystem.CuttableBlocksOnField)
             {
                 var distance = (cuttableBlock.transform.position - _blade.transform.position).magnitude;
                 

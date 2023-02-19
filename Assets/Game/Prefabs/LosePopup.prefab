@@ -3697,8 +3697,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e84b8134a44626b0d3e9f10debbaf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 8664608823138956130}
   _canvasGroup: {fileID: 8664608823138956128}
-  _fadeDuration: 2
   _scoreText: {fileID: 8664608822719097429}
   _maxScoreText: {fileID: 7673095802981021596}
   _restartCommandButton: {fileID: 511263009998602339}
@@ -4142,6 +4142,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 8664608823783835305}
   _animator: {fileID: 7536133362376455718}
+  _animatedCommandButtonAnimationParameters:
+    _normalStateName: Normal
+    _hightlightedStateName: Highlighted
+    _pressedStateName: Pressed
 --- !u!114 &9127917618465699584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4346,6 +4350,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 8664608823846996862}
   _animator: {fileID: 4685413939211216797}
+  _animatedCommandButtonAnimationParameters:
+    _normalStateName: Normal
+    _hightlightedStateName: Highlighted
+    _pressedStateName: Pressed
 --- !u!114 &6535716043513866947
 MonoBehaviour:
   m_ObjectHideFlags: 0

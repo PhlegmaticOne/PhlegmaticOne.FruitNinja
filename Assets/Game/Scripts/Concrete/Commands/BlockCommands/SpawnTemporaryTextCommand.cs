@@ -1,10 +1,10 @@
 ﻿using Concrete.Commands.BlockCommands.Base;
-using Concrete.Commands.ViewCommands.Models;
+using Concrete.Commands.BlockCommands.Models;
 using Entities.Base;
 using Helpers;
 using UnityEngine;
 
-namespace Concrete.Commands.ViewCommands
+namespace Concrete.Commands.BlockCommands
 {
     public class SpawnTemporaryTextCommand : ICuttableBlockOnDestroyCommand
     {

@@ -3,20 +3,29 @@ using DG.Tweening;
 using Helpers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using Button = UnityEngine.UI.Button;
 
 namespace Systems.Losing
 {
     public class LosePopup : MonoBehaviour
     {
+        [SerializeField] private Canvas _canvas;
         [SerializeField] private CanvasGroup _canvasGroup;
-        [SerializeField] private float _fadeDuration;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private AppendTextMeshPro _maxScoreText;
 
         [SerializeField] private AnimatedCommandButton _restartCommandButton;
         [SerializeField] private AnimatedCommandButton _menuCommandButton;
+
+        private float _fadeDuration;
+
+        public void Initialize(float animationDuration, Camera cam,
+            ICommand restartCommand, ICommand menuCommand)
+        {
+            _fadeDuration = animationDuration;
+            OnRestartButtonClickedExecute(restartCommand);
+            OnMenuButtonClickedExecute(menuCommand);
+        }
+
         public void Show(int gameScore, int maxScore)
         {
             gameObject.SetActive(true);

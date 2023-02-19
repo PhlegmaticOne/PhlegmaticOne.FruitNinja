@@ -7,7 +7,8 @@ namespace Systems.Blocks
 {
     public class StateCheckingBlocksSystem : MonoBehaviour, IStageable
     {
-        [SerializeField] private BlocksSystem _blocksSystem;
+        private BlocksSystem _blocksSystem;
+        public void Initialize(BlocksSystem blocksSystem) => _blocksSystem = blocksSystem;
         public event Action AllBlocksFallen;
         public event Action<Block> BlockFallen;
         public int BlocksCount => _blocksSystem.AllBlocksOnField.Count;
@@ -29,6 +30,6 @@ namespace Systems.Blocks
         }
 
         private void OnBlockFallen(Block block) => BlockFallen?.Invoke(block);
-        public void OnAllBlocksFallen() => AllBlocksFallen?.Invoke();
+        private void OnAllBlocksFallen() => AllBlocksFallen?.Invoke();
     }
 }

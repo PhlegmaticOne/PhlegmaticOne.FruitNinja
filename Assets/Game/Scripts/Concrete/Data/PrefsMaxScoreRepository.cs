@@ -2,7 +2,7 @@
 using Systems.Score.Models;
 using UnityEngine;
 
-namespace Game.Scripts.Concrete.Data
+namespace Concrete.Data
 {
     public class PrefsMaxScoreRepository : IRepository<ScoreModel>
     {

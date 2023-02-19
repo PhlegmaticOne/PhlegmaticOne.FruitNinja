@@ -4,25 +4,28 @@ namespace InputSystem
 {
     public class InputSystemFactory : IInputSystemFactory
     {
+        private IInputSystem _inputSystem;
+
         public IInputSystem CreateInput()
         {
-            IInputSystem inputSystem = null;
-
-            switch (Application.platform)
+            if (_inputSystem == null)
             {
-                case RuntimePlatform.Android:
+                switch (Application.platform)
                 {
-                    inputSystem = new TouchInputSystem();
-                    break;
-                }
-                default:
-                {
-                    inputSystem = new MouseInputSystem();
-                    break;
+                    case RuntimePlatform.Android:
+                    {
+                        _inputSystem = new TouchInputSystem();
+                        break;
+                    }
+                    default:
+                    {
+                        _inputSystem = new MouseInputSystem();
+                        break;
+                    }
                 }
             }
             
-            return inputSystem;
+            return _inputSystem;
         }
     }
 }
