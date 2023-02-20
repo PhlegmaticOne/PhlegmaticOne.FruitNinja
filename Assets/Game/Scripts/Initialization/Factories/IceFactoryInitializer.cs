@@ -20,7 +20,7 @@ namespace Initialization.Factories
             onDestroyCommandsProvider.On<IceBlockConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
             {
                 new SpawnParticleCommand(c.DestroyParticleSystem, _effectsTransform),
-                new FreezeBlocksCommand(_freezingSystem, c.EffectDuration, c.Force)
+                new FreezeBlocksCommand(_freezingSystem, c.EffectDuration, c.Force, c.AdditionalVerticalSpeedWhenMovingUp)
             });
         }
     }

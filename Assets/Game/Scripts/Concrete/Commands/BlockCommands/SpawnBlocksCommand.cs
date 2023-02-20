@@ -2,6 +2,7 @@
 using Abstracts.Extensions;
 using Concrete.Commands.BlockCommands.Base;
 using Concrete.Commands.BlockCommands.Models;
+using Concrete.Factories.Blocks;
 using Concrete.Factories.Blocks.Models;
 using Configurations;
 using Configurations.Base;
@@ -57,7 +58,7 @@ namespace Concrete.Commands.BlockCommands
                 {
                     BlockInfo = blockInfo,
                     Position = entity.transform.position,
-                    BlockGravity = entity.GetGravityAcceleration(),
+                    BlockGravity = entity.GetGravityAcceleration() * GlobalInitialForce.Value,
                     InitialSpeed = speed
                 });
                 

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6315590cbc4411f971bba5181b6580f, type: 3}
   m_Name: CuttingSystemConfiguration
   m_EditorClassIdentifier: 
-  _minSpeedToSlice: 18
+  _minSpeedToSlice: 20
   _blade: {fileID: 3873656532368228378, guid: 3a148e33b77834640ad019dad1ac7f2d, type: 3}

@@ -15,6 +15,8 @@ namespace Systems.Freezing
         private Canvas _canvas;
         private Coroutine _freezeCoroutine;
 
+        private float _force;
+
         public void Initialize(BlocksSystem blocksSystem, Canvas canvas)
         {
             _blocksSystem = blocksSystem;
@@ -26,25 +28,46 @@ namespace Systems.Freezing
         public void Disable()
         {
             TryStopRoutine();
-            GlobalInitialForce.Value = 1;
+            Accelerate(GetAllBlocks(), _force);
+            SetGlobalForce(1);
             _canvas.gameObject.SetActive(false);
         }
 
-        public void FreezeBlocks(float time, float force)
+        public void FreezeBlocks(float time, float force, float additionalVerticalSpeedWhenMovingUp)
         {
-            TryStopRoutine();
-            _freezeCoroutine = StartCoroutine(Freeze(time, force));
+            _force = force;
+            if (_freezeCoroutine != null)
+            {
+                StopCoroutine(_freezeCoroutine);
+                Accelerate(GetAllBlocks(), force);
+            }
+            _freezeCoroutine = StartCoroutine(Freeze(time, force, additionalVerticalSpeedWhenMovingUp));
         }
 
-        private IEnumerator Freeze(float time, float force)
+        private IEnumerator Freeze(float time, float force, float additionalVerticalSpeedWhenMovingUp)
         {
             _canvas.gameObject.SetActive(true);
-            var all = _blocksSystem.AllBlocksOnField.ToList();
-            Slow(all, force);
-            yield return new WaitForSeconds(time);
-            all = _blocksSystem.AllBlocksOnField.ToList();
-            Accelerate(all, force);
+            Slow(GetAllBlocks(), force);
+            var currentTime = 0f;
+
+            while (currentTime < time)
+            {
+                foreach (var block in GetAllBlocks())
+                {
+                    if (block.transform.position.y < 0 && block.GetSpeed().y > 0)
+                    {
+                        block.AddSpeed(new Vector3(0, additionalVerticalSpeedWhenMovingUp));
+                    }   
+                }
+                
+                currentTime += Time.fixedDeltaTime;
+                yield return new WaitForSeconds(Time.fixedDeltaTime);
+            }
+            
+            Accelerate(GetAllBlocks(), force);
+            SetGlobalForce(1);
             _canvas.gameObject.SetActive(false);
+            _freezeCoroutine = null;
         }
         
         private void Slow(IReadOnlyList<Block> blocks, float force)
@@ -59,10 +82,9 @@ namespace Systems.Freezing
         
         private void Accelerate(IReadOnlyList<Block> blocks, float force)
         {
-            SetGlobalForce(1);
             foreach (var block in blocks)
             {
-                block.EnableDefaultGravity();
+                block.SetGravityAcceleration(block.GetGravityAcceleration() * force);
                 block.SetSpeed(block.GetSpeed() * force);
             }
         }
@@ -76,5 +98,7 @@ namespace Systems.Freezing
                 StopCoroutine(_freezeCoroutine);
             }
         }
+
+        private List<Block> GetAllBlocks() => _blocksSystem.AllBlocksOnField.ToList();
     }
 }

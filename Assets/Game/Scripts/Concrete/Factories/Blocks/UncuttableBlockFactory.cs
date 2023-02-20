@@ -30,8 +30,8 @@ namespace Concrete.Factories.Blocks
             block.transform.position = (Vector2)transform.position + creationContext.Offset;
             block.transform.rotation = transform.rotation;
             block.transform.localScale = transform.localScale * creationContext.Scale;
-            block.SetGravityAcceleration(originalBlock.GetGravityAcceleration() / GlobalInitialForce.Value);
-            block.AddSpeed(((Vector2)originalBlock.GetSpeed() + creationContext.MultiplySpeedBy) / GlobalInitialForce.Value);
+            block.SetGravityAcceleration(originalBlock.GetGravityAcceleration());
+            block.AddSpeed((Vector2)originalBlock.GetSpeed() + creationContext.MultiplySpeedBy);
             blockInfo.SetSprite(creationContext.BlockNewSprite);
             blockInfo.SetMagnetBehaviour(originalBlock.BlockInfo.MagnetBehaviour);
             block.Initialize(blockInfo, new PrivateRotateAnimation(6, creationContext.Direction));

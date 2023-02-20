@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BombConfiguration
   m_EditorClassIdentifier: 
   _blockInfo: {fileID: 11400000, guid: 4f064cf02716d3b4eb6477437afad1e4, type: 2}
-  _spawnInPackageProbability: 0.4
+  _spawnInPackageProbability: 0.35
   _spawnCountInPackagePercentage: 0.5

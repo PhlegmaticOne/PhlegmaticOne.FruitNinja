@@ -17,12 +17,9 @@ namespace Initialization.Factories
     {
         [SerializeField] private BlocksSystem _blocksSystem;
         [SerializeField] private CuttingSystem _cuttingSystem;
-        [SerializeField] private InitializerBase<IUncuttableBlocksFactory> _uncuttableBlocksFactoryInitializer;
         public override void ConfigureCommands(OnDestroyCommandsProvider onDestroyCommandsProvider,
             SpawningSystemInitializer spawningSystemInitializer)
         {
-            var factory = _uncuttableBlocksFactoryInitializer.Create();
-            
             onDestroyCommandsProvider.On<FruitBasketConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
             {
                 new SplitIntoTwoPartsCommand(c.CutSprites.LeftHalf, c.CutSprites.RightHalf,

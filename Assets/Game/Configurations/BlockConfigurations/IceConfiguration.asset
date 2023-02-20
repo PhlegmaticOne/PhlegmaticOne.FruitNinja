@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435e805a8bed44e38cd024445a4d70eb, type: 3}
   m_Name: IceConfiguration
   m_EditorClassIdentifier: 
-  _effectDuration: 2
+  _effectDuration: 5
   _force: 4
   _destroyParticleSystem: {fileID: 722976512074995390, guid: af225c684b9e7c845bfb93e9c18e347c, type: 3}
+  _additionalVerticalSpeedWhenMovingUp: 0.04

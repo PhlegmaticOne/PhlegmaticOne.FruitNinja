@@ -56,6 +56,7 @@ namespace Systems.Cutting
         {
             _isCuttingEnabled = true;
             _isInputEnabled = true;
+            _blade.SliceTo(Vector3.zero);
         }
 
         public void Disable()

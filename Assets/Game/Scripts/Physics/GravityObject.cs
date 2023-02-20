@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Physics
 {
@@ -11,9 +12,13 @@ namespace Physics
         private void Update()
         {
             Move();
+        }
+
+        private void FixedUpdate()
+        {
             UpdateSpeed();
         }
-        
+
         public void SetGravityAcceleration(float gravityAcceleration)
         {
             if (gravityAcceleration > 0)
