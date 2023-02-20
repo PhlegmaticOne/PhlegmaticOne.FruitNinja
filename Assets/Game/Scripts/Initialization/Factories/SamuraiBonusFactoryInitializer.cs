@@ -20,11 +20,13 @@ namespace Initialization.Factories
         [SerializeField] private SpawningSystem _spawningSystem;
         [SerializeField] private SpawnSystemConfiguration _spawnSystemConfiguration;
         [SerializeField] private SamuraiCanvas _samuraiCanvas;
+        [SerializeField] private Timer _timer;
         public override void ConfigureCommands(OnDestroyCommandsProvider onDestroyCommandsProvider,
             SpawningSystemInitializer spawningSystemInitializer)
         {
             onDestroyCommandsProvider.On<SamuraiBonusConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
             {
+                new StartTimerCommand(_timer, c.Duration),
                 new EnableSamuraiModeCommand(_spawningSystem, _healthController, 
                     _samuraiCanvas, _spawnSystemConfiguration,
                     c.Duration, c.IncreaseBlocksCountInPackageBy, c.DecreasePackageIntervalsBy)

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d5247bde0248e89f91c4c39a85e393, type: 3}
   m_Name: SamuraiBonusConfiguration
   m_EditorClassIdentifier: 
-  _duration: 10
+  _duration: 13
   _increaseBlocksCountInPackageBy: 2
   _decreasePackageIntervalsBy: 3
