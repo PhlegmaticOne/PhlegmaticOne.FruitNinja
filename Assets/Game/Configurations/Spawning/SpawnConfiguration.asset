@@ -20,8 +20,8 @@ MonoBehaviour:
     _max: 1
   _spawnPackageIntervals:
     _min: 1
-    _max: 2.5
-  _initialBlockGravity: 8
+    _max: 2
+  _initialBlockGravity: 11
   _fruitsAvailable:
   - _fruitInfo: {fileID: 11400000, guid: feb4895c5c9ca1e4f9ab32bbb96ff269, type: 2}
     _priority: 10

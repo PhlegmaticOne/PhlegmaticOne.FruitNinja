@@ -24,7 +24,7 @@ MonoBehaviour:
   _blocksCountInfo:
     _min: 3
     _max: 5
-  _explosionPower: 5
+  _explosionPower: 7
   _cutSprites:
     _leftHalf: {fileID: 21300000, guid: a5f020a63f5167f4b84193cf784730cd, type: 3}
     _rightHalf: {fileID: 21300000, guid: 4e077288789922649be15180767d472a, type: 3}

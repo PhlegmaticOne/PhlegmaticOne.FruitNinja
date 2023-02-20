@@ -20,7 +20,10 @@ namespace Entities.Base
                 SlicingVector = sliceContext.SlicingVector,
                 SlicingPoint = sliceContext.SlicePoint,
             });
-            PermanentDestroy();
+            if (BlockInfo.DestroyOnCut)
+            {
+                PermanentDestroy();
+            }
         }
     }
 

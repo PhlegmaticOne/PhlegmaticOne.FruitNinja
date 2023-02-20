@@ -6,13 +6,11 @@ namespace Spawning.Spawning.Difficulty
     public class DefaultSpawningDifficulty : ISpawningDifficulty
     {
         private readonly int _maxDifficulty;
-        private readonly int _maxGravityIncrease;
         private readonly SpawnSystemConfiguration _spawningSystemInfo;
 
-        public DefaultSpawningDifficulty(int maxDifficulty, int maxGravityIncrease, SpawnSystemConfiguration spawningSystemInfo)
+        public DefaultSpawningDifficulty(int maxDifficulty, SpawnSystemConfiguration spawningSystemInfo)
         {
             _maxDifficulty = maxDifficulty;
-            _maxGravityIncrease = maxGravityIncrease;
             _spawningSystemInfo = spawningSystemInfo;
         }
         
@@ -21,7 +19,7 @@ namespace Spawning.Spawning.Difficulty
             var iteration = spawnIteration > _maxDifficulty ? _maxDifficulty : spawnIteration;
             return new DifficultyInfo
             {
-                BlocksGravity = CalculateBlocksGravity(iteration, _spawningSystemInfo),
+                BlocksGravity = _spawningSystemInfo.InitialBlockGravity,
                 BlocksInPackageCount = CalculateBlocksInPackageCount(iteration, _spawningSystemInfo),
                 TimeToNextBlockPackage = CalculateTimeToNextPackage(iteration, _spawningSystemInfo),
                 DecreaseBlocksInPackageIntervalsBy = 1,
@@ -44,8 +42,5 @@ namespace Spawning.Spawning.Difficulty
             var stage = spawnIteration * timeInterval / _maxDifficulty;
             return spawningSystemInfo.SpawnPackageIntervals.Max - stage;
         }
-
-        private float CalculateBlocksGravity(int spawnIteration, SpawnSystemConfiguration spawningSystemInfo) => 
-            spawningSystemInfo.InitialBlockGravity + (float)(_maxGravityIncrease * spawnIteration) / _maxDifficulty;
     }
 }

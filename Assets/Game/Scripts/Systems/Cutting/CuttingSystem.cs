@@ -121,7 +121,10 @@ namespace Systems.Cutting
                 
                 if (distance <= cuttableBlock.BlockInfo.Radius)
                 {
-                    _blocksSystem.RemoveBlock(cuttableBlock);
+                    if (cuttableBlock.BlockInfo.DestroyOnCut)
+                    {
+                        _blocksSystem.RemoveBlock(cuttableBlock);
+                    }
 
                     cuttableBlock.Cut(new SliceContext
                     {

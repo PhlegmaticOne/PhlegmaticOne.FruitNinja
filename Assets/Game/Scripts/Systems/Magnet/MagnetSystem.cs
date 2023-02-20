@@ -11,6 +11,7 @@ namespace Systems.Magnet
         private FilteringBlocksSystem _filteringBlocksSystem;
         private MagnetWaves _magnetWaves;
         private Coroutine _magnetizeCoroutine;
+        private const int ThrowPower = 3;
 
         public void Initialize(FilteringBlocksSystem filteringBlocksSystem, MagnetWaves magnetWaves)
         {
@@ -29,17 +30,17 @@ namespace Systems.Magnet
             }
         }
 
-        public void Magnetize(Vector3 point, float time, float power, float radius)
+        public void Magnetize(Vector3 point, float time, float power, float radius, float magnetizedCenterRadius)
         {
             if (_magnetizeCoroutine != null)
             {
                 return;
             }
             
-            _magnetizeCoroutine = StartCoroutine(MagnetizeRoutine(point, time, power, radius));
+            _magnetizeCoroutine = StartCoroutine(MagnetizeRoutine(point, time, power, radius, magnetizedCenterRadius));
         }
 
-        private IEnumerator MagnetizeRoutine(Vector3 point, float time, float power, float radius)
+        private IEnumerator MagnetizeRoutine(Vector3 point, float time, float power, float radius, float magnetizedCenterRadius)
         {
             var currentTime = 0f;
             
@@ -51,9 +52,10 @@ namespace Systems.Magnet
                 {
                     var position = block.transform.position;
                     positions.Add(position);
-                    var direction = (point - position).normalized * power;
+                    var direction = point - position;
+                    var speedVector = direction.normalized * power;
                     block.DisableGravity();
-                    block.SetSpeed(direction);
+                    block.SetSpeed(direction.magnitude <= magnetizedCenterRadius ? Vector3.zero : speedVector);
                 }
                 _magnetWaves.DrawLines(point, positions);
                 
@@ -62,8 +64,19 @@ namespace Systems.Magnet
             }
             
             ResetGravities(point, radius);
+            ThrowBlocksInRandomDirection(point, radius);
             _magnetWaves.Hide();
             _magnetizeCoroutine = null;
+        }
+        
+        private void ThrowBlocksInRandomDirection(Vector3 point, float radius)
+        {
+            foreach (var block in _filteringBlocksSystem.MagnetizedBlocksInRadius(point, radius))
+            {
+                var angle = Random.Range(0, 360);
+                var speed = Quaternion.Euler(0, 0, angle) * Vector3.right * ThrowPower;
+                block.SetSpeed(speed);
+            }
         }
 
         private void ResetGravities(Vector3 point, float radius)

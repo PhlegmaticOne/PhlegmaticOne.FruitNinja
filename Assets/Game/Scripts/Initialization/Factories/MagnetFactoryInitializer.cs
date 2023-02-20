@@ -25,7 +25,7 @@ namespace Initialization.Factories
             {
                 new SpawnParticleCommand(c.DestroyParticleSystem, _effectsTransform),
                 new CutFruitIntoPartsCommand(spawningSystemInitializer.UncuttableBlocksFactory, _blocksSystem),
-                new MagnetBlocksToPointCommand(_magnetSystem, c.Duration, c.MagnetForce, c.Radius)
+                new MagnetBlocksToPointCommand(_magnetSystem, c.Duration, c.MagnetForce, c.Radius, c.MagnetizedCenterRadius)
             });
         }
     }

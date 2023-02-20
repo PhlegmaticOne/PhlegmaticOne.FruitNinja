@@ -15,7 +15,7 @@ namespace Systems.Freezing
         private Canvas _canvas;
         private Coroutine _freezeCoroutine;
 
-        private float _force;
+        private static float _force;
 
         public void Initialize(BlocksSystem blocksSystem, Canvas canvas)
         {
@@ -28,26 +28,21 @@ namespace Systems.Freezing
         public void Disable()
         {
             TryStopRoutine();
-            Accelerate(GetAllBlocks(), _force);
             SetGlobalForce(1);
             _canvas.gameObject.SetActive(false);
         }
 
         public void FreezeBlocks(float time, float force, float additionalVerticalSpeedWhenMovingUp)
         {
+            TryStopRoutine();
             _force = force;
-            if (_freezeCoroutine != null)
-            {
-                StopCoroutine(_freezeCoroutine);
-                Accelerate(GetAllBlocks(), force);
-            }
-            _freezeCoroutine = StartCoroutine(Freeze(time, force, additionalVerticalSpeedWhenMovingUp));
+            _freezeCoroutine = StartCoroutine(Freeze(time, additionalVerticalSpeedWhenMovingUp));
         }
 
-        private IEnumerator Freeze(float time, float force, float additionalVerticalSpeedWhenMovingUp)
+        private IEnumerator Freeze(float time, float additionalVerticalSpeedWhenMovingUp)
         {
             _canvas.gameObject.SetActive(true);
-            Slow(GetAllBlocks(), force);
+            Slow(GetAllBlocks(), _force);
             var currentTime = 0f;
 
             while (currentTime < time)
@@ -64,7 +59,7 @@ namespace Systems.Freezing
                 yield return new WaitForSeconds(Time.fixedDeltaTime);
             }
             
-            Accelerate(GetAllBlocks(), force);
+            Accelerate(GetAllBlocks(), _force);
             SetGlobalForce(1);
             _canvas.gameObject.SetActive(false);
             _freezeCoroutine = null;
@@ -96,6 +91,7 @@ namespace Systems.Freezing
             if (_freezeCoroutine != null)
             {
                 StopCoroutine(_freezeCoroutine);
+                Accelerate(GetAllBlocks(), _force);
             }
         }
 

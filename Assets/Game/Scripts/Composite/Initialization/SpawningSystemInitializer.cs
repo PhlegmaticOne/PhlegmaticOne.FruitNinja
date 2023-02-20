@@ -65,8 +65,7 @@ namespace Composite.Initialization
             AbstractSpawner = new AbstractSpawner(factories, commandsProvider);
             SpawnPoliciesProvider = new SpawnPoliciesProvider(spawnPolicies);
             PackageGenerator = new PackageGenerator(_spawnSystemConfiguration, SpawnPoliciesProvider);
-            SpawningDifficulty = new DefaultSpawningDifficulty(_difficultyConfiguration.MaxDifficulty, 
-                _difficultyConfiguration.MaxIncreaseGravityBy, _spawnSystemConfiguration);
+            SpawningDifficulty = new DefaultSpawningDifficulty(_difficultyConfiguration.MaxDifficulty, _spawnSystemConfiguration);
         }
     }
 }

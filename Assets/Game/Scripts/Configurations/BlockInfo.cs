@@ -6,6 +6,7 @@ namespace Configurations
     [CreateAssetMenu(menuName = "BlocksInfo/Create block info", order = 0)]
     public class BlockInfo : ScriptableObject
     {
+        [SerializeField] private bool _destroyOnCut = true;
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Color _particleEffectColor;
         [SerializeField] private float _radius;
@@ -13,6 +14,7 @@ namespace Configurations
         [SerializeField] private ComboBehavior _comboBehavior;
         [SerializeField] private FallenBehaviour _fallenBehaviour;
         [SerializeField] private MagnetBehaviour _magnetBehaviour;
+        public bool DestroyOnCut => _destroyOnCut;
         public Sprite Sprite => _sprite;
         public Color ParticleEffectColor => _particleEffectColor;
         public float Radius => _radius;

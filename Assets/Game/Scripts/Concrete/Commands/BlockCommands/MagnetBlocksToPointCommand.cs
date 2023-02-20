@@ -11,17 +11,20 @@ namespace Concrete.Commands.BlockCommands
         private readonly float _duration;
         private readonly float _power;
         private readonly float _radius;
+        private readonly float _magnetizedCenterRadius;
 
-        public MagnetBlocksToPointCommand(MagnetSystem magnetSystem, float duration, float power, float radius)
+        public MagnetBlocksToPointCommand(MagnetSystem magnetSystem, float duration, 
+            float power, float radius, float magnetizedCenterRadius)
         {
             _magnetSystem = magnetSystem;
             _duration = duration;
             _power = power;
             _radius = radius;
+            _magnetizedCenterRadius = magnetizedCenterRadius;
         }
         public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
         {
-            _magnetSystem.Magnetize(entity.transform.position, _duration, _power, _radius);
+            _magnetSystem.Magnetize(entity.transform.position, _duration, _power, _radius, _magnetizedCenterRadius);
         }
     }
 }
