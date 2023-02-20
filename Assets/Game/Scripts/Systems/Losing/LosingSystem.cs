@@ -18,7 +18,6 @@ namespace Systems.Losing
 
         public void Initialize(LosingSystemConfiguration losingSystemConfiguration,
             LosePopup losePopup,
-            //Transform popupTransform,
             Camera cam,
             HealthSystem healthSystem,
             StateCheckingBlocksSystem stateCheckingBlocksSystem,
@@ -48,6 +47,7 @@ namespace Systems.Losing
 
         private void HealthSystemOnHealthEnded()
         {
+            Debug.Log("Lose: " + Time.time);
             if (_blocksSystem.BlocksCount == 0)
             {
                 BlocksSystemOnAllBlocksFallen();    

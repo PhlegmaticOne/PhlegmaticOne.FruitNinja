@@ -9,6 +9,7 @@ using Systems.Freezing;
 using Systems.Health;
 using Systems.Losing;
 using Systems.Magnet;
+using Systems.Samurai;
 using Systems.Score;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -26,12 +27,14 @@ namespace Initialization.Stages
         [SerializeField] private FollowSystem _followSystem;
         [SerializeField] private FreezingSystem _freezingSystem;
         [SerializeField] private MagnetSystem _magnetSystem;
+        [SerializeField] private SamuraiCanvas _samuraiCanvas;
 
         private List<IStageable> _stageables;
         public List<IStageable> GetStageables()
         {
             return _stageables ??= new List<IStageable>
             {
+                _samuraiCanvas,
                 _followSystem,
                 _freezingSystem,
                 _magnetSystem,

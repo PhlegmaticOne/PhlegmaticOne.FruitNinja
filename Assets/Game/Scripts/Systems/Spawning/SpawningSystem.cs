@@ -22,8 +22,10 @@ namespace Spawning.Spawning
         private ISpawningDifficulty _spawningDifficulty;
         private IAbstractSpawner _abstractSpawner;
         private IPackageGenerator _packageGenerator;
+        private ISpawningDifficulty _defaultSpawningDifficulty;
         
         private Coroutine _spawnCoroutine;
+        private Coroutine _changeDifficultyCoroutine;
         
         public void Initialize(ISpawningDifficulty spawningDifficulty,
             IPackageGenerator packageGenerator,
@@ -32,11 +34,20 @@ namespace Spawning.Spawning
             _spawningDifficulty = spawningDifficulty;
             _abstractSpawner = abstractSpawner;
             _packageGenerator = packageGenerator;
+            _defaultSpawningDifficulty = spawningDifficulty;
         }
         
         public void Enable() => _spawnCoroutine = StartCoroutine(Spawn());
         
-        public void Disable() => StopCoroutine(_spawnCoroutine);
+        public void Disable()
+        {
+            if (_changeDifficultyCoroutine != null)
+            {
+                StopCoroutine(_changeDifficultyCoroutine);
+                _spawningDifficulty = _defaultSpawningDifficulty;
+            }
+            StopCoroutine(_spawnCoroutine);
+        }
 
         private IEnumerator Spawn()
         {
@@ -56,7 +67,7 @@ namespace Spawning.Spawning
 
         public void ChangeSpawnDifficulty(ISpawningDifficulty spawningDifficulty, float time)
         {
-            StartCoroutine(ChangeDifficulty(spawningDifficulty, time));
+            _changeDifficultyCoroutine = StartCoroutine(ChangeDifficulty(spawningDifficulty, time));
         }
 
         private IEnumerator ChangeDifficulty(ISpawningDifficulty spawningDifficulty, float time)

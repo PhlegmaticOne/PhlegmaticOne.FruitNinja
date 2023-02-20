@@ -1194,6 +1194,7 @@ MonoBehaviour:
   _followSystem: {fileID: 1350003057}
   _freezingSystem: {fileID: 217427308}
   _magnetSystem: {fileID: 1279886251}
+  _samuraiCanvas: {fileID: 1910231282931219800}
 --- !u!1 &361544338
 GameObject:
   m_ObjectHideFlags: 0
