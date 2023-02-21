@@ -16,7 +16,6 @@ namespace Composite.Initialization
         [SerializeField] private LosingSystem _losingSystem;
 
         [SerializeField] private int _startSceneIndex;
-        [SerializeField] private Camera _camera;
         [SerializeField] private LosingSystemConfiguration _losingSystemConfiguration;
         [SerializeField] private LosePopup _losePopup;
         [SerializeField] private HealthSystem _healthSystem;
@@ -30,7 +29,6 @@ namespace Composite.Initialization
             
             _losingSystem.Initialize(_losingSystemConfiguration,
                 _losePopup,
-                _camera,
                 _healthSystem,
                 _stateCheckingBlocksSystem,
                 _scoreSystem,

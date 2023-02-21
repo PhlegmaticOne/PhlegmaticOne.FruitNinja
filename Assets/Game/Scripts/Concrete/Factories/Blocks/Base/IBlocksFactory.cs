@@ -4,5 +4,8 @@ using Entities.Base;
 
 namespace Concrete.Factories.Blocks.Base
 {
-    public interface ICuttableBlocksFactory : IFactory<BlockCreationContext, CuttableBlock> { }
+    public interface ICuttableBlocksFactory : IFactory<BlockCreationContext, CuttableBlock>
+    {
+        
+    }
 }

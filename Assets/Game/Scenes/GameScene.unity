@@ -1219,7 +1219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917bdf55f205417393c62a731780c09f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stateCheckingBlocksSystem: {fileID: 1682222371}
   _cuttingSystem: {fileID: 2071163548}
   _healthController: {fileID: 1692402513}
   _losingSystem: {fileID: 953086574}
@@ -3017,7 +3016,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _losingSystem: {fileID: 953086574}
   _startSceneIndex: 0
-  _camera: {fileID: 963194227}
   _losingSystemConfiguration: {fileID: 11400000, guid: 8058d52015286f843800698785dbd969, type: 2}
   _losePopup: {fileID: 1480011041}
   _healthSystem: {fileID: 1096669734}
@@ -3266,6 +3264,7 @@ MonoBehaviour:
   _healthController: {fileID: 1692402513}
   _stateCheckingBlocksSystem: {fileID: 1682222371}
   _healthSystem: {fileID: 1096669734}
+  _camera: {fileID: 963194227}
 --- !u!1 &1600743097
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,6 +4724,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 361544342}
     m_Modifications:
     - target: {fileID: 3538953843427110854, guid: ac340ab362e54764cba1dc405b9d2658, type: 3}
+      propertyPath: m_Spacing
+      value: 19.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538953843427110854, guid: ac340ab362e54764cba1dc405b9d2658, type: 3}
       propertyPath: m_ReverseArrangement
       value: 1
       objectReference: {fileID: 0}
@@ -4816,6 +4819,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4522944785578773840, guid: ac340ab362e54764cba1dc405b9d2658, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 963194227}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac340ab362e54764cba1dc405b9d2658, type: 3}
 --- !u!1001 &3653338883366086117
@@ -5107,6 +5114,10 @@ PrefabInstance:
       propertyPath: _restartButton
       value: 
       objectReference: {fileID: 385206198}
+    - target: {fileID: 8664608823138956131, guid: 2a9804499d748204cb2024d54f86aa32, type: 3}
+      propertyPath: _sceneTransition
+      value: 
+      objectReference: {fileID: 2012184610}
     - target: {fileID: 8664608823237311408, guid: 2a9804499d748204cb2024d54f86aa32, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 126.3

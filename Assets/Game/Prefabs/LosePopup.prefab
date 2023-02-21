@@ -3697,7 +3697,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e84b8134a44626b0d3e9f10debbaf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 8664608823138956130}
   _canvasGroup: {fileID: 8664608823138956128}
   _scoreText: {fileID: 8664608822719097429}
   _maxScoreText: {fileID: 7673095802981021596}
@@ -4146,6 +4145,7 @@ MonoBehaviour:
     _normalStateName: Normal
     _hightlightedStateName: Highlighted
     _pressedStateName: Pressed
+  _resetOnAnimationEnded: 0
 --- !u!114 &9127917618465699584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4354,6 +4354,7 @@ MonoBehaviour:
     _normalStateName: Normal
     _hightlightedStateName: Highlighted
     _pressedStateName: Pressed
+  _resetOnAnimationEnded: 1
 --- !u!114 &6535716043513866947
 MonoBehaviour:
   m_ObjectHideFlags: 0

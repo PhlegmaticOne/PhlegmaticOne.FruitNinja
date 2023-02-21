@@ -21,7 +21,7 @@ namespace Abstracts.Probabilities
                 }
             }
 
-            return items.Last();
+            return items.LastOrDefault();
         }
     }
 }

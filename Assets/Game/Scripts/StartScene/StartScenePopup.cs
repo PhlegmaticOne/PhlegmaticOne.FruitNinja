@@ -9,8 +9,8 @@ namespace StartScene
 {
     public class StartScenePopup : MonoBehaviour
     {
-        [SerializeField] private Button _startGameButton;
-        [SerializeField] private Button _exitButton;
+        [SerializeField] private AnimatedButton _startGameButton;
+        [SerializeField] private AnimatedButton _exitButton;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private CanvasGroup _canvasGroup;
 
@@ -19,22 +19,24 @@ namespace StartScene
             _scoreText.text = scoreRepository.Get().Value.ToString();
         }
 
-        public void OnStartGameClickExecuteCommand(ICommand command)
-        {
-            _startGameButton.onClick.AddListener(() =>
+        public void OnStartGameClickExecuteCommand(ICommand command) => 
+            _startGameButton.OnClick(() =>
             {
                 DisableButtons();
                 command.Execute();
             });
-        }
 
-        public void OnExitButtonClickExecuteCommand(ICommand command)
-        {
-            _exitButton.onClick.AddListener(command.Execute);
-        }
+        public void OnExitButtonClickExecuteCommand(ICommand command) => 
+            _exitButton.OnClick(() =>
+            {
+                DisableButtons();
+                command.Execute();
+            });
 
         private void DisableButtons()
         {
+            _exitButton.Disable();
+            _startGameButton.Disable();
             _canvasGroup.interactable = false;
         }
     }

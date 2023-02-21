@@ -1,6 +1,7 @@
 ﻿using Abstracts.Commands;
 using DG.Tweening;
 using Helpers;
+using Scenes;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +9,6 @@ namespace Systems.Losing
 {
     public class LosePopup : MonoBehaviour
     {
-        [SerializeField] private Canvas _canvas;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private AppendTextMeshPro _maxScoreText;
@@ -18,8 +18,7 @@ namespace Systems.Losing
 
         private float _fadeDuration;
 
-        public void Initialize(float animationDuration, Camera cam,
-            ICommand restartCommand, ICommand menuCommand)
+        public void Initialize(float animationDuration, ICommand restartCommand, ICommand menuCommand)
         {
             _fadeDuration = animationDuration;
             OnRestartButtonClickedExecute(restartCommand);
@@ -53,11 +52,7 @@ namespace Systems.Losing
         {
             _menuCommandButton.OnBeforeAnimation(DisableButtons);
             
-            _menuCommandButton.OnAfterAnimation(() =>
-            {
-                gameObject.SetActive(false);
-                command.Execute();
-            });
+            _menuCommandButton.OnAfterAnimation(command.Execute);
         }
 
         private void DisableButtons()

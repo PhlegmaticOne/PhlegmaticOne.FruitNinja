@@ -18,7 +18,6 @@ namespace Systems.Losing
 
         public void Initialize(LosingSystemConfiguration losingSystemConfiguration,
             LosePopup losePopup,
-            Camera cam,
             HealthSystem healthSystem,
             StateCheckingBlocksSystem stateCheckingBlocksSystem,
             ScoreSystem scoreSystem,
@@ -27,7 +26,7 @@ namespace Systems.Losing
             ICommand menuCommand)
         {
             _losePopup = losePopup;
-            _losePopup.Initialize(losingSystemConfiguration.PopupAnimationDuration, cam, restartCommand, menuCommand);
+            _losePopup.Initialize(losingSystemConfiguration.PopupAnimationDuration, restartCommand, menuCommand);
             _blocksSystem = stateCheckingBlocksSystem;
             _scoreSystem = scoreSystem;
             _healthSystem = healthSystem;

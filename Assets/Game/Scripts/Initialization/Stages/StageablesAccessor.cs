@@ -15,7 +15,6 @@ namespace Initialization.Stages
 {
     public class StageablesAccessor : MonoBehaviour
     {
-        [SerializeField] private StateCheckingBlocksSystem _stateCheckingBlocksSystem;
         [SerializeField] private CuttingSystem _cuttingSystem;
         [SerializeField] private HealthController _healthController;
         [SerializeField] private LosingSystem _losingSystem;
@@ -33,7 +32,6 @@ namespace Initialization.Stages
                 _samuraiCanvas,
                 _freezingSystem,
                 _magnetSystem,
-                _stateCheckingBlocksSystem,
                 _scoreSystem,
                 _cuttingSystem,
                 _spawningSystem,

@@ -20,7 +20,7 @@ namespace Concrete.Commands.BlockCommands
         {
             for (var i = 0; i < _heartsToGive; i++)
             {
-                _healthSystem.AddHeart();
+                _healthSystem.AddHeart(entity.transform.position);
             }
         }
     }

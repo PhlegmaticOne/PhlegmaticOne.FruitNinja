@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startHealthCount: 3
   _maxHealthCount: 3
+  _transitionToHealthBarTime: 2.5
   _healthPrefab: {fileID: 717137470747014067, guid: 8c42612a122333f48a67590c9d317164, type: 3}

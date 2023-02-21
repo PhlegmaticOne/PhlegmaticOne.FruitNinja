@@ -10,7 +10,7 @@ namespace Helpers
         [SerializeField] private Button _button;
         [SerializeField] private Animator _animator;
         [SerializeField] private AnimatedCommandButtonAnimationParameters _animatedCommandButtonAnimationParameters;
-
+        [SerializeField] private bool _resetOnAnimationEnded = true;
         private bool _isPlaying;
         private UnityAction _beforeAnimationAction;
         private UnityAction _afterAnimationAction;
@@ -60,7 +60,11 @@ namespace Helpers
         {
             _isPlaying = false;
             _afterAnimationAction?.Invoke();
-            ResetToNormal();
+
+            if (_resetOnAnimationEnded)
+            {
+                ResetToNormal();
+            }
         }
 
         private void ResetToNormal() => _animator.SetTrigger(_animatedCommandButtonAnimationParameters.NormalStateName);

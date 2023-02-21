@@ -9,6 +9,10 @@ namespace Systems.Health
         [SerializeField] private Image _heartImage;
         [SerializeField] private Image _shadowImage;
         [SerializeField] private float _fadeDuration = 1f;
+
+        public float Width => _heartImage.sprite.textureRect.width;
+        public float Height => _heartImage.sprite.textureRect.height;
+        
         private void Awake()
         {
             HideImage(_heartImage);
