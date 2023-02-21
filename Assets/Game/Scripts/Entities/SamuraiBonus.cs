@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class SamuraiBonus : CuttableBlock
+    public class SamuraiBonus : Block
     {
         [SerializeField] private SamuraiBonusConfiguration _samuraiBonusConfiguration;
         public override IBlockConfiguration BlockConfiguration => _samuraiBonusConfiguration;

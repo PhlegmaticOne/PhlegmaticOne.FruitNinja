@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Initialization.Factories
 {
-    public class BombFactoryInitializer : CuttableBlocksFactoryInitializer
+    public class BombFactoryInitializer : SpawningBlocksFactoryInitializer
     {
         [SerializeField] private Transform _effectsTransform;
         [SerializeField] private Transform _uiTransform;
@@ -23,7 +23,7 @@ namespace Initialization.Factories
         public override void ConfigureCommands(OnDestroyCommandsProvider onDestroyCommandsProvider,
             SpawningSystemInitializer spawningSystemInitializer)
         {
-            onDestroyCommandsProvider.On<BombConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
+            onDestroyCommandsProvider.On<BombConfiguration>(c => new List<IBlockOnDestroyCommand>
             {
                 new SpawnParticleCommand(c.ExplosionParticle, _effectsTransform),
                 new SpawnTemporaryTextCommand(c.OnExplosionText, _temporaryTextMeshPro, _uiTransform),

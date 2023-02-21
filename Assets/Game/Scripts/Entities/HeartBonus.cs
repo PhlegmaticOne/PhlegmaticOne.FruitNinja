@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class HeartBonus : CuttableBlock
+    public class HeartBonus : Block
     {
         [SerializeField] private HealthBonusConfiguration _heartBonusConfiguration;
         public override IBlockConfiguration BlockConfiguration => _heartBonusConfiguration;

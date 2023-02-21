@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Initialization.Factories
 {
-    public class MagnetFactoryInitializer : CuttableBlocksFactoryInitializer
+    public class MagnetFactoryInitializer : SpawningBlocksFactoryInitializer
     {
         [SerializeField] private MagnetSystem _magnetSystem;
         [SerializeField] private BlocksSystem _blocksSystem;
@@ -21,7 +21,7 @@ namespace Initialization.Factories
         public override void ConfigureCommands(OnDestroyCommandsProvider onDestroyCommandsProvider,
             SpawningSystemInitializer spawningSystemInitializer)
         {
-            onDestroyCommandsProvider.On<MagnetConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
+            onDestroyCommandsProvider.On<MagnetConfiguration>(c => new List<IBlockOnDestroyCommand>
             {
                 new SpawnParticleCommand(c.DestroyParticleSystem, _effectsTransform),
                 new CutFruitIntoPartsCommand(spawningSystemInitializer.UncuttableBlocksFactory, _blocksSystem),

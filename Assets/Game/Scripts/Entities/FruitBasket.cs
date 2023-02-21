@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class FruitBasket : CuttableBlock
+    public class FruitBasket : Block
     {
         [SerializeField] private FruitBasketConfiguration _fruitBasketConfiguration;
         public override IBlockConfiguration BlockConfiguration => _fruitBasketConfiguration;

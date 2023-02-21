@@ -5,24 +5,22 @@ using Systems.Freezing;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class FreezeBlocksCommand : ICuttableBlockOnDestroyCommand
+    public class FreezeBlocksCommand : IBlockOnDestroyCommand
     {
         private readonly FreezingSystem _freezingSystem;
         private readonly float _time;
         private readonly float _acceleration;
-        private readonly float _additionalVerticalSpeedWhenMovingUp;
 
-        public FreezeBlocksCommand(FreezingSystem freezingSystem, float time, float acceleration, float additionalVerticalSpeedWhenMovingUp)
+        public FreezeBlocksCommand(FreezingSystem freezingSystem, float time, float acceleration)
         {
             _freezingSystem = freezingSystem;
             _time = time;
             _acceleration = acceleration;
-            _additionalVerticalSpeedWhenMovingUp = additionalVerticalSpeedWhenMovingUp;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
-            _freezingSystem.FreezeBlocks(_time, _acceleration, _additionalVerticalSpeedWhenMovingUp);
+            _freezingSystem.FreezeBlocks(_time, _acceleration);
         }
     }
 }

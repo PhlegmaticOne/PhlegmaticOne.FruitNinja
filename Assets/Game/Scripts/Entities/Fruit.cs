@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class Fruit : CuttableBlock
+    public class Fruit : Block
     {
         [SerializeField] private FruitBlockConfiguration _fruitBlockConfiguration;
         

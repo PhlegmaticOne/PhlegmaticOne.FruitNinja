@@ -5,7 +5,7 @@ using InputSystem;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class DisableInputCommand : ICuttableBlockOnDestroyCommand
+    public class DisableInputCommand : IBlockOnDestroyCommand
     {
         private readonly IInputSystem _inputSystem;
         private readonly bool _isDisable;
@@ -17,7 +17,7 @@ namespace Concrete.Commands.BlockCommands
             _inputSystem.Ended += InputSystemOnEnded;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             if (_isDisable == false)
             {

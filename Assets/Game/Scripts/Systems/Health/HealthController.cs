@@ -42,8 +42,8 @@ namespace Systems.Health
 
         private void StateCheckingBlocksSystemOnBlockFallen(Block obj)
         {
-            if (obj is CuttableBlock cuttableBlock && 
-                cuttableBlock.BlockInfo.FallenBehaviour == FallenBehaviour.HealthImpact && 
+            if (obj.IsCuttable && 
+                obj.BlockInfo.FallenBehaviour == FallenBehaviour.HealthImpact && 
                 _isRemoving)
             {
                 _healthSystem.RemoveHeart();

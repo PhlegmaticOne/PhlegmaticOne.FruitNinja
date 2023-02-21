@@ -8,11 +8,9 @@ namespace Configurations.Blocks
         [SerializeField] private float _effectDuration;
         [SerializeField] private float _force;
         [SerializeField] private ParticleSystem _destroyParticleSystem;
-        [SerializeField] private float _additionalVerticalSpeedWhenMovingUp;
 
         public float EffectDuration => _effectDuration;
         public float Force => _force;
         public ParticleSystem DestroyParticleSystem => _destroyParticleSystem;
-        public float AdditionalVerticalSpeedWhenMovingUp => _additionalVerticalSpeedWhenMovingUp;
     }
 }

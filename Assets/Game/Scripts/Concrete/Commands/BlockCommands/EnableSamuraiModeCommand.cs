@@ -9,7 +9,7 @@ using Systems.Samurai;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class EnableSamuraiModeCommand : ICuttableBlockOnDestroyCommand
+    public class EnableSamuraiModeCommand : IBlockOnDestroyCommand
     {
         private readonly SpawningSystem _spawningSystem;
         private readonly HealthController _healthController;
@@ -35,7 +35,7 @@ namespace Concrete.Commands.BlockCommands
             _increaseBlocksCountInPackageBy = increaseBlocksCountInPackageBy;
             _decreasePackageIntervalsBy = decreasePackageIntervalsBy;
         }
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             var samuraiSpawningDifficulty = new SamuraiModeSpawningDifficulty(_spawnSystemConfiguration,
                 _increaseBlocksCountInPackageBy, _decreasePackageIntervalsBy);

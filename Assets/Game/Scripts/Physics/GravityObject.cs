@@ -6,7 +6,7 @@ namespace Physics
     {
         private static readonly float _baseAcceleration = 8f;
         private Vector3 _speed;
-        [SerializeField] private Vector3 _acceleration;
+        private Vector3 _acceleration;
 
         private void Update()
         {

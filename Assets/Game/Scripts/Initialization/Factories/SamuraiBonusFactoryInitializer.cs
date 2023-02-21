@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Initialization.Factories
 {
-    public class SamuraiBonusFactoryInitializer : CuttableBlocksFactoryInitializer
+    public class SamuraiBonusFactoryInitializer : SpawningBlocksFactoryInitializer
     {
         [SerializeField] private HealthController _healthController;
         [SerializeField] private SpawningSystem _spawningSystem;
@@ -24,7 +24,7 @@ namespace Initialization.Factories
         public override void ConfigureCommands(OnDestroyCommandsProvider onDestroyCommandsProvider,
             SpawningSystemInitializer spawningSystemInitializer)
         {
-            onDestroyCommandsProvider.On<SamuraiBonusConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
+            onDestroyCommandsProvider.On<SamuraiBonusConfiguration>(c => new List<IBlockOnDestroyCommand>
             {
                 new StartTimerCommand(_timer, c.Duration),
                 new EnableSamuraiModeCommand(_spawningSystem, _healthController, 

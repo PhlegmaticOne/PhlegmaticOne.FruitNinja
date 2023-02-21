@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class SpawnTemporaryTextCommand : ICuttableBlockOnDestroyCommand
+    public class SpawnTemporaryTextCommand : IBlockOnDestroyCommand
     {
         private readonly string _text;
         private readonly TemporaryTextMeshPro _temporaryTextMeshPro;
@@ -19,7 +19,7 @@ namespace Concrete.Commands.BlockCommands
             _uiTransform = uiTransform;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             _temporaryTextMeshPro.SpawnText(_text, entity.transform.position, 
                 destroyContext.SlicingVector, Color.white, _uiTransform);

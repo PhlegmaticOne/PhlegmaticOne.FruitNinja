@@ -4,5 +4,5 @@ using Entities.Base;
 
 namespace Concrete.Commands.BlockCommands.Base
 {
-    public interface ICuttableBlockOnDestroyCommand : IOnDestroyCommand<CuttableBlock, BlockDestroyContext> { }
+    public interface IBlockOnDestroyCommand : IOnDestroyCommand<Block, BlockDestroyContext> { }
 }

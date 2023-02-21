@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class SpawnParticleCommand : ICuttableBlockOnDestroyCommand
+    public class SpawnParticleCommand : IBlockOnDestroyCommand
     {
         private readonly ParticleSystem _particleSystem;
         private readonly Transform _effectsTransform;
@@ -16,7 +16,7 @@ namespace Concrete.Commands.BlockCommands
             _effectsTransform = effectsTransform;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             var particleSystem = Object.Instantiate(_particleSystem, _effectsTransform, true);
             var module = particleSystem.main;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class Ice : CuttableBlock
+    public class Ice : Block
     {
         [SerializeField] private IceBlockConfiguration _iceBlockConfiguration;
         public override IBlockConfiguration BlockConfiguration => _iceBlockConfiguration;

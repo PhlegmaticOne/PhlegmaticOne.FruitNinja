@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Abstracts.Stages;
+using Helpers;
 using Spawning.Spawning;
 using Systems.Blocks;
 using Systems.Cutting;
@@ -16,6 +17,7 @@ namespace Initialization.Stages
     public class StageablesAccessor : MonoBehaviour
     {
         [SerializeField] private CuttingSystem _cuttingSystem;
+        [SerializeField] private Timer _timer;
         [SerializeField] private HealthController _healthController;
         [SerializeField] private LosingSystem _losingSystem;
         [SerializeField] private ScoreSystem _scoreSystem;
@@ -29,6 +31,7 @@ namespace Initialization.Stages
         {
             return _stageables ??= new List<IStageable>
             {
+                _timer,
                 _samuraiCanvas,
                 _freezingSystem,
                 _magnetSystem,

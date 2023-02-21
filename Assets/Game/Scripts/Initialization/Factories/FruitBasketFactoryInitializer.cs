@@ -13,14 +13,14 @@ using UnityEngine;
 
 namespace Initialization.Factories
 {
-    public class FruitBasketFactoryInitializer : CuttableBlocksFactoryInitializer
+    public class FruitBasketFactoryInitializer : SpawningBlocksFactoryInitializer
     {
         [SerializeField] private BlocksSystem _blocksSystem;
         [SerializeField] private CuttingSystem _cuttingSystem;
         public override void ConfigureCommands(OnDestroyCommandsProvider onDestroyCommandsProvider,
             SpawningSystemInitializer spawningSystemInitializer)
         {
-            onDestroyCommandsProvider.On<FruitBasketConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
+            onDestroyCommandsProvider.On<FruitBasketConfiguration>(c => new List<IBlockOnDestroyCommand>
             {
                 new SplitIntoTwoPartsCommand(c.CutSprites.LeftHalf, c.CutSprites.RightHalf,
                     spawningSystemInitializer.UncuttableBlocksFactory, _blocksSystem),

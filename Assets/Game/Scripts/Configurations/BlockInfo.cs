@@ -7,6 +7,7 @@ namespace Configurations
     public class BlockInfo : ScriptableObject
     {
         [SerializeField] private bool _destroyOnCut = true;
+        [SerializeField] private bool _isCuttable = true;
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Color _particleEffectColor;
         [SerializeField] private float _radius;
@@ -15,6 +16,7 @@ namespace Configurations
         [SerializeField] private FallenBehaviour _fallenBehaviour;
         [SerializeField] private MagnetBehaviour _magnetBehaviour;
         public bool DestroyOnCut => _destroyOnCut;
+        public bool IsCuttable => _isCuttable;
         public Sprite Sprite => _sprite;
         public Color ParticleEffectColor => _particleEffectColor;
         public float Radius => _radius;
@@ -23,6 +25,7 @@ namespace Configurations
         public FallenBehaviour FallenBehaviour => _fallenBehaviour;
         public MagnetBehaviour MagnetBehaviour => _magnetBehaviour;
         public void SetSprite(Sprite sprite) => _sprite = sprite;
+        public void SetIsCuttable(bool isCuttable) => _isCuttable = isCuttable;
         public void SetMagnetBehaviour(MagnetBehaviour magnetBehaviour) => _magnetBehaviour = magnetBehaviour;
     }
     

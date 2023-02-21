@@ -9,18 +9,13 @@ using UnityEngine;
 
 namespace Concrete.Factories.Blocks
 {
-    public static class GlobalInitialForce
+    public class SpawningBlocksFactory : IBlocksFactory<BlockCreationContext>
     {
-        public static float Value { get; set; } = 1f;
-    }
-    
-    public class CuttableBlocksFactory : ICuttableBlocksFactory
-    {
-        private readonly CuttableBlock _prefab;
+        private readonly Block _prefab;
         private readonly IFactory<ITransformAnimation> _animationsFactory;
         private readonly Transform _parent;
 
-        public CuttableBlocksFactory(Transform parent, CuttableBlock prefab,
+        public SpawningBlocksFactory(Transform parent, Block prefab,
             IFactory<ITransformAnimation> animationsFactory)
         {
             _parent = parent;
@@ -28,14 +23,14 @@ namespace Concrete.Factories.Blocks
             _animationsFactory = animationsFactory;
         }
         
-        public CuttableBlock Create(BlockCreationContext creationContext)
+        public Block Create(BlockCreationContext creationContext)
         {
             var animation = _animationsFactory.Create();
             var block = Object.Instantiate(_prefab, _parent);
             block.transform.position = creationContext.Position;
             block.Initialize(creationContext.BlockInfo, animation);
-            block.AddSpeed(creationContext.InitialSpeed / GlobalInitialForce.Value);
-            block.SetGravityAcceleration(creationContext.BlockGravity / GlobalInitialForce.Value);
+            block.AddSpeed(creationContext.InitialSpeed);
+            block.SetGravityAcceleration(creationContext.BlockGravity);
             return block;
         }
     }

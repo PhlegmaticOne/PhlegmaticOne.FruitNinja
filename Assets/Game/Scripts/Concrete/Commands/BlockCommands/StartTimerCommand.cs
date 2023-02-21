@@ -5,7 +5,7 @@ using Helpers;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class StartTimerCommand : ICuttableBlockOnDestroyCommand
+    public class StartTimerCommand : IBlockOnDestroyCommand
     {
         private readonly Timer _timer;
         private readonly int _time;
@@ -16,7 +16,7 @@ namespace Concrete.Commands.BlockCommands
             _time = time;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             _timer.StartTimer(_time);
         }

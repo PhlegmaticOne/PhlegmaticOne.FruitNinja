@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Initialization.Factories
 {
-    public class HealthBonusFactoryInitializer : CuttableBlocksFactoryInitializer
+    public class HealthBonusFactoryInitializer : SpawningBlocksFactoryInitializer
     {
         [SerializeField] private Transform _effectsTransform;
         [SerializeField] private HealthSystem _healthSystem;
@@ -24,7 +24,7 @@ namespace Initialization.Factories
         public override void ConfigureCommands(OnDestroyCommandsProvider onDestroyCommandsProvider,
             SpawningSystemInitializer spawningSystemInitializer)
         {
-            onDestroyCommandsProvider.On<HealthBonusConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
+            onDestroyCommandsProvider.On<HealthBonusConfiguration>(c => new List<IBlockOnDestroyCommand>
             {
                 new SpawnParticleCommand(c.OnDestroyParticleSystem, _effectsTransform),
                 new AddHeartCommand(_healthSystem, c.HeartsToGive)

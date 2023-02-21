@@ -5,6 +5,6 @@ namespace Spawning.Spawning.Commands
 {
     public interface IOnDestroyCommandsProvider
     {
-        ICuttableBlockOnDestroyCommand CreateCommand(IBlockConfiguration blockConfiguration);
+        IBlockOnDestroyCommand CreateCommand(IBlockConfiguration blockConfiguration);
     }
 }

@@ -16,7 +16,7 @@ using UnityEngine;
 
 namespace Initialization.Factories
 {
-    public class FruitsFactoryInitializer : CuttableBlocksFactoryInitializer
+    public class FruitsFactoryInitializer : SpawningBlocksFactoryInitializer
     {
         [SerializeField] private InitializerBase<IComboScoreHandlingPolicy> _comboScoreHandlingPolicyInitializer;
         [SerializeField] private BlocksSystem _blocksSystem;
@@ -31,7 +31,7 @@ namespace Initialization.Factories
         {
             var comboScoreHandlingPolicy = _comboScoreHandlingPolicyInitializer.Create();
             
-            onDestroyCommandsProvider.On<FruitBlockConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
+            onDestroyCommandsProvider.On<FruitBlockConfiguration>(c => new List<IBlockOnDestroyCommand>
             {
                 new CutFruitIntoPartsCommand(spawningSystemInitializer.UncuttableBlocksFactory, _blocksSystem),
                 new SpawnParticleCommand(c.JuiceParticleSystem, _effectsTransform),

@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class ScoreHandlingCommand : ICuttableBlockOnDestroyCommand
+    public class ScoreHandlingCommand : IBlockOnDestroyCommand
     {
         private readonly IComboScoreHandlingPolicy _comboScoreHandlingPolicy;
         private readonly ComboSystem _comboSystem;
@@ -31,7 +31,7 @@ namespace Concrete.Commands.BlockCommands
             _textParentTransform = textParentTransform;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             switch (entity.BlockInfo.ComboBehavior)
             {
@@ -52,7 +52,7 @@ namespace Concrete.Commands.BlockCommands
             }
         }
 
-        private void TryAddCombo(CuttableBlock entity, BlockDestroyContext destroyContext)
+        private void TryAddCombo(Block entity, BlockDestroyContext destroyContext)
         {
             var position = entity.transform.position;
             var numberInComboSequence = _comboSystem.TryAddCombo(position);

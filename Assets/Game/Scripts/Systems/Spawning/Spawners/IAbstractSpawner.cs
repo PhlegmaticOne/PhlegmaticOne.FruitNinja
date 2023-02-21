@@ -6,6 +6,6 @@ namespace Spawning.Spawning.Spawners
 {
     public interface IAbstractSpawner
     {
-        CuttableBlock Spawn(BlockInfo blockInfo, BlockCreationContext blockCreationContext);
+        Block Spawn(BlockInfo blockInfo, BlockCreationContext blockCreationContext);
     }
 }

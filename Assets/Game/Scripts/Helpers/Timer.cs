@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections;
+using Abstracts.Stages;
 using TMPro;
 using UnityEngine;
 
 namespace Helpers
 {
-    public class Timer : MonoBehaviour
+    public class Timer : MonoBehaviour, IStageable
     {
         private const string TimeFormat = @"mm\:ss";
+        private Coroutine _timerCoroutine;
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
         public void StartTimer(int seconds)
         {
             gameObject.SetActive(true);
-            StartCoroutine(UpdateTimer(seconds));
+            _timerCoroutine = StartCoroutine(UpdateTimer(seconds));
         }
 
         private IEnumerator UpdateTimer(int seconds)
@@ -28,6 +30,16 @@ namespace Helpers
 
             _textMeshPro.text = string.Empty;
             gameObject.SetActive(false);
+        }
+
+        public void Enable() { }
+
+        public void Disable()
+        {
+            if (_timerCoroutine != null)
+            {
+                StopCoroutine(_timerCoroutine);
+            }
         }
     }
 }

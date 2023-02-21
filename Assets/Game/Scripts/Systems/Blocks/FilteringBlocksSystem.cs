@@ -10,7 +10,8 @@ namespace Systems.Blocks
     {
         private BlocksSystem _blocksSystem;
         public void Initialize(BlocksSystem blocksSystem) => _blocksSystem = blocksSystem;
-        public List<CuttableBlock> CuttableBlocksOnField => _blocksSystem.AllBlocksOnField.OfType<CuttableBlock>().ToList();
+        public List<Block> CuttableBlocksOnField => _blocksSystem.AllBlocksOnField
+            .Where(x => x.IsCuttable).ToList();
         public List<Block> MagnetizedBlocksInRadius(Vector3 point, float radius) => 
             _blocksSystem.AllBlocksOnField
                 .Where(x => x.BlockInfo.MagnetBehaviour == MagnetBehaviour.Magnetized && 

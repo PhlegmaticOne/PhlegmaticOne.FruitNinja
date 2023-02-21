@@ -2,6 +2,7 @@
 using Abstracts.Initialization;
 using Composite.Base;
 using Concrete.Factories.Blocks.Base;
+using Concrete.Factories.Blocks.Models;
 using Configurations;
 using Configurations.Spawning;
 using Initialization.Factories.Base;
@@ -22,13 +23,13 @@ namespace Composite.Initialization
 
         [SerializeField] private SpawnSystemConfiguration _spawnSystemConfiguration;
         [SerializeField] private DifficultyConfiguration _difficultyConfiguration;
-        [SerializeField] private InitializerBase<IUncuttableBlocksFactory> _uncuttableBlocksFactoryInitializer;
+        [SerializeField] private InitializerBase<IBlocksFactory<FromBlockBlockCreationContext>> _uncuttableBlocksFactoryInitializer;
         [SerializeField] private InitializerBase<IInputSystemFactory> _inputSystemFactoryInitialzer;
-        [SerializeField] private List<CuttableBlocksFactoryInitializer> _factoryInitializers;
+        [SerializeField] private List<SpawningBlocksFactoryInitializer> _factoryInitializers;
 
         internal IAbstractSpawner AbstractSpawner;
         internal IInputSystem InputSystem;
-        internal IUncuttableBlocksFactory UncuttableBlocksFactory;
+        internal IBlocksFactory<FromBlockBlockCreationContext> UncuttableBlocksFactory;
         internal ISpawnPoliciesProvider SpawnPoliciesProvider;
         internal IPackageGenerator PackageGenerator;
         internal ISpawningDifficulty SpawningDifficulty;
@@ -42,7 +43,7 @@ namespace Composite.Initialization
         private void Configure()
         {
             var commandsProvider = new OnDestroyCommandsProvider();
-            var factories = new Dictionary<BlockInfo, ICuttableBlocksFactory>();
+            var factories = new Dictionary<BlockInfo, IBlocksFactory<BlockCreationContext>>();
             var spawnPolicies = new Dictionary<BlockInfo, ISpawnPolicy>();
             
             foreach (var factoryInitializer in _factoryInitializers)

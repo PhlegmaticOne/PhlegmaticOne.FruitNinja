@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class SpawnBlocksCommand : ICuttableBlockOnDestroyCommand
+    public class SpawnBlocksCommand : IBlockOnDestroyCommand
     {
         private const float HalfCircle = 180f;
         private const float AngleOffset = 20f;
@@ -43,7 +43,7 @@ namespace Concrete.Commands.BlockCommands
             _cuttingSystem = cuttingSystem;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             var blocksCount = GetBlocksCount();
             var deltaAngle = CalculateDeltaAngle(blocksCount);
@@ -58,7 +58,7 @@ namespace Concrete.Commands.BlockCommands
                 {
                     BlockInfo = blockInfo,
                     Position = entity.transform.position,
-                    BlockGravity = entity.GetGravityAcceleration() * GlobalInitialForce.Value,
+                    BlockGravity = entity.GetGravityAcceleration(),
                     InitialSpeed = speed
                 });
                 

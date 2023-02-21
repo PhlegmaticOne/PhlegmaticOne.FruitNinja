@@ -8,14 +8,14 @@ using UnityEngine;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class SplitIntoTwoPartsCommand : ICuttableBlockOnDestroyCommand
+    public class SplitIntoTwoPartsCommand : IBlockOnDestroyCommand
     {
         private readonly Sprite _left;
         private readonly Sprite _right;
-        private readonly IUncuttableBlocksFactory _uncuttableBlocksFactory;
+        private readonly IBlocksFactory<FromBlockBlockCreationContext> _uncuttableBlocksFactory;
         private readonly BlocksSystem _blocksSystem;
         public SplitIntoTwoPartsCommand(Sprite left, Sprite right,
-            IUncuttableBlocksFactory uncuttableBlocksFactory,
+            IBlocksFactory<FromBlockBlockCreationContext> uncuttableBlocksFactory,
             BlocksSystem blocksSystem)
         {
             _left = left;
@@ -24,7 +24,7 @@ namespace Concrete.Commands.BlockCommands
             _blocksSystem = blocksSystem;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             SpawnBlock(_right, entity, destroyContext, 0);
             SpawnBlock(_left, entity, destroyContext, 180);

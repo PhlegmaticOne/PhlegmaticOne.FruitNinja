@@ -8,18 +8,18 @@ using UnityEngine;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class CutFruitIntoPartsCommand : ICuttableBlockOnDestroyCommand
+    public class CutFruitIntoPartsCommand : IBlockOnDestroyCommand
     {
-        private readonly IUncuttableBlocksFactory _uncuttableBlockFactory;
+        private readonly IBlocksFactory<FromBlockBlockCreationContext> _uncuttableBlockFactory;
         private readonly BlocksSystem _blocksSystem;
 
-        public CutFruitIntoPartsCommand(IUncuttableBlocksFactory uncuttableBlockFactory, BlocksSystem blocksSystem)
+        public CutFruitIntoPartsCommand(IBlocksFactory<FromBlockBlockCreationContext> uncuttableBlockFactory, BlocksSystem blocksSystem)
         {
             _uncuttableBlockFactory = uncuttableBlockFactory;
             _blocksSystem = blocksSystem;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             var blockSprite = entity.BlockInfo.Sprite;
             var texture = blockSprite.texture;

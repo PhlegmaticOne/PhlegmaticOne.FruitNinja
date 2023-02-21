@@ -5,7 +5,7 @@ using Systems.Magnet;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class MagnetBlocksToPointCommand : ICuttableBlockOnDestroyCommand
+    public class MagnetBlocksToPointCommand : IBlockOnDestroyCommand
     {
         private readonly MagnetSystem _magnetSystem;
         private readonly float _duration;
@@ -22,7 +22,7 @@ namespace Concrete.Commands.BlockCommands
             _radius = radius;
             _magnetizedCenterRadius = magnetizedCenterRadius;
         }
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             _magnetSystem.Magnetize(entity.transform.position, _duration, _power, _radius, _magnetizedCenterRadius);
         }

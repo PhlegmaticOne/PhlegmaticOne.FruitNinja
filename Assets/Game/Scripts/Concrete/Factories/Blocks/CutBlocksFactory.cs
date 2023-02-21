@@ -9,18 +9,18 @@ using UnityEngine;
 
 namespace Concrete.Factories.Blocks
 {
-    public class UncuttableBlockFactory : IUncuttableBlocksFactory
+    public class CutBlockFactory : IBlocksFactory<FromBlockBlockCreationContext>
     {
-        private readonly UncuttableBlock _uncuttableBlockPrefab;
+        private readonly Block _uncuttableBlockPrefab;
         private readonly Transform _parent;
 
-        public UncuttableBlockFactory(UncuttableBlock uncuttableBlockPrefab, Transform parent)
+        public CutBlockFactory(Block uncuttableBlockPrefab, Transform parent)
         {
             _uncuttableBlockPrefab = uncuttableBlockPrefab;
             _parent = parent;
         }
         
-        public UncuttableBlock Create(FromBlockBlockCreationContext creationContext)
+        public Block Create(FromBlockBlockCreationContext creationContext)
         {
             var block = Object.Instantiate(_uncuttableBlockPrefab, _parent, true);
             var blockInfo = ScriptableObject.CreateInstance<BlockInfo>();
@@ -34,6 +34,7 @@ namespace Concrete.Factories.Blocks
             block.AddSpeed((Vector2)originalBlock.GetSpeed() + creationContext.MultiplySpeedBy);
             blockInfo.SetSprite(creationContext.BlockNewSprite);
             blockInfo.SetMagnetBehaviour(originalBlock.BlockInfo.MagnetBehaviour);
+            blockInfo.SetIsCuttable(false);
             block.Initialize(blockInfo, new PrivateRotateAnimation(6, creationContext.Direction));
 
             return block;

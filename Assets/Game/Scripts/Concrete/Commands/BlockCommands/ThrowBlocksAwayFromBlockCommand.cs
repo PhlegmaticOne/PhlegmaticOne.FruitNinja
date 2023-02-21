@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class ThrowBlocksAwayFromBlockCommand : ICuttableBlockOnDestroyCommand
+    public class ThrowBlocksAwayFromBlockCommand : IBlockOnDestroyCommand
     {
         private readonly BlocksSystem _blocksSystem;
         private readonly ExplosionParameters _explosionParameters;
@@ -17,7 +17,7 @@ namespace Concrete.Commands.BlockCommands
             _explosionParameters = explosionParameters;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             var destroyingBlockPosition = entity.transform.position;
             

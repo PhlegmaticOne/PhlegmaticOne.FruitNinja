@@ -8,12 +8,12 @@ using Spawning.Commands;
 
 namespace Initialization.Factories
 {
-    public class BrickFactoryInitializer : CuttableBlocksFactoryInitializer
+    public class BrickFactoryInitializer : SpawningBlocksFactoryInitializer
     {
         public override void ConfigureCommands(OnDestroyCommandsProvider onDestroyCommandsProvider,
             SpawningSystemInitializer spawningSystemInitializer)
         {
-            onDestroyCommandsProvider.On<BrickBlockConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
+            onDestroyCommandsProvider.On<BrickBlockConfiguration>(c => new List<IBlockOnDestroyCommand>
             {
                 new DisableInputCommand(spawningSystemInitializer.InputSystem, c.BlocksInput),
             });

@@ -5,7 +5,7 @@ using Systems.Health;
 
 namespace Concrete.Commands.BlockCommands
 {
-    public class RemoveHeartCommand : ICuttableBlockOnDestroyCommand
+    public class RemoveHeartCommand : IBlockOnDestroyCommand
     {
         private readonly HealthSystem _healthSystem;
         private readonly int _heartsCount;
@@ -16,7 +16,7 @@ namespace Concrete.Commands.BlockCommands
             _heartsCount = heartsCount;
         }
         
-        public void OnDestroy(CuttableBlock entity, BlockDestroyContext destroyContext)
+        public void OnDestroy(Block entity, BlockDestroyContext destroyContext)
         {
             for (var i = 0; i < _heartsCount; i++)
             {

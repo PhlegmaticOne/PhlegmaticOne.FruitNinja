@@ -9,8 +9,7 @@ namespace Composite.Initialization
     {
         [SerializeField] private Canvas _canvas;
         [SerializeField] private FreezingSystem _freezingSystem;
-        [SerializeField] private BlocksSystem _blocksSystem;
         
-        public override void Initialize() => _freezingSystem.Initialize(_blocksSystem, _canvas);
+        public override void Initialize() => _freezingSystem.Initialize(_canvas);
     }
 }

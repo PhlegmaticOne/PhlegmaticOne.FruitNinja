@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class Bomb : CuttableBlock
+    public class Bomb : Block
     {
         [SerializeField] private BombConfiguration _bombConfiguration;
 

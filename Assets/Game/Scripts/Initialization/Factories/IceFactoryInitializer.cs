@@ -10,17 +10,17 @@ using UnityEngine;
 
 namespace Initialization.Factories
 {
-    public class IceFactoryInitializer : CuttableBlocksFactoryInitializer
+    public class IceFactoryInitializer : SpawningBlocksFactoryInitializer
     {
         [SerializeField] private FreezingSystem _freezingSystem;
         [SerializeField] private Transform _effectsTransform;
         public override void ConfigureCommands(OnDestroyCommandsProvider onDestroyCommandsProvider,
             SpawningSystemInitializer spawningSystemInitializer)
         {
-            onDestroyCommandsProvider.On<IceBlockConfiguration>(c => new List<ICuttableBlockOnDestroyCommand>
+            onDestroyCommandsProvider.On<IceBlockConfiguration>(c => new List<IBlockOnDestroyCommand>
             {
                 new SpawnParticleCommand(c.DestroyParticleSystem, _effectsTransform),
-                new FreezeBlocksCommand(_freezingSystem, c.EffectDuration, c.Force, c.AdditionalVerticalSpeedWhenMovingUp)
+                new FreezeBlocksCommand(_freezingSystem, c.EffectDuration, c.Force)
             });
         }
     }
