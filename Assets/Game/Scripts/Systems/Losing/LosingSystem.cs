@@ -33,20 +33,12 @@ namespace Systems.Losing
             _gameLostCommand = gameLostCommand;
         }
 
-        public void Initialize(ICommand restartCommand, ICommand menuCommand, ICommand gameLostCommand)
-        {
-            _losePopup.OnRestartButtonClickedExecute(restartCommand);
-            _losePopup.OnMenuButtonClickedExecute(menuCommand);
-            _gameLostCommand = gameLostCommand;
-        }
-        
         public void Enable() => _healthSystem.HealthEnded += HealthSystemOnHealthEnded;
 
         public void Disable() => _healthSystem.HealthEnded -= HealthSystemOnHealthEnded;
 
         private void HealthSystemOnHealthEnded()
         {
-            Debug.Log("Lose: " + Time.time);
             if (_blocksSystem.BlocksCount == 0)
             {
                 BlocksSystemOnAllBlocksFallen();    

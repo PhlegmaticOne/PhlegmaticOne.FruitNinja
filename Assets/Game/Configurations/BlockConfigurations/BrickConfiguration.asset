@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: BrickConfiguration
   m_EditorClassIdentifier: 
   _blocksInput: 1
+  _onCollisionParticleSystem: {fileID: 7600551764943380156, guid: 94d7e4dd480538049ac5b684d284199c, type: 3}

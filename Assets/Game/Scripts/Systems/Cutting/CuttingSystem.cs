@@ -6,6 +6,7 @@ using Entities.Base;
 using InputSystem;
 using Systems.Blocks;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Systems.Cutting
 {
@@ -21,6 +22,8 @@ namespace Systems.Cutting
         private InputData _inputData;
         private bool _isCuttingEnabled;
         private bool _isInputEnabled;
+
+        public event UnityAction<Block> Cut;
 
         public void Initialize(CuttingSystemConfiguration cuttingSystemConfiguration,
             IInputSystemFactory inputSystemFactory,
@@ -123,6 +126,7 @@ namespace Systems.Cutting
                     if (cuttableBlock.BlockInfo.DestroyOnCut)
                     {
                         _blocksSystem.RemoveBlock(cuttableBlock);
+                        OnCut(cuttableBlock);
                     }
 
                     cuttableBlock.Cut(new SliceContext
@@ -140,5 +144,7 @@ namespace Systems.Cutting
             position.z = _camera.nearClipPlane;
             return position;
         }
+
+        private void OnCut(Block block) => Cut?.Invoke(block);
     }
 }

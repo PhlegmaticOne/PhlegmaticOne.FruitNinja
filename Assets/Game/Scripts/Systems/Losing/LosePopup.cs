@@ -1,7 +1,6 @@
 ﻿using Abstracts.Commands;
 using DG.Tweening;
 using Helpers;
-using Scenes;
 using TMPro;
 using UnityEngine;
 
@@ -33,7 +32,7 @@ namespace Systems.Losing
             _canvasGroup.DOFade(1, _fadeDuration).OnComplete(EnableButtons);
         }
 
-        public void OnRestartButtonClickedExecute(ICommand command)
+        private void OnRestartButtonClickedExecute(ICommand command)
         {
             _restartCommandButton.OnBeforeAnimation(DisableButtons);
             
@@ -48,10 +47,9 @@ namespace Systems.Losing
             });
         }
 
-        public void OnMenuButtonClickedExecute(ICommand command)
+        private void OnMenuButtonClickedExecute(ICommand command)
         {
             _menuCommandButton.OnBeforeAnimation(DisableButtons);
-            
             _menuCommandButton.OnAfterAnimation(command.Execute);
         }
 

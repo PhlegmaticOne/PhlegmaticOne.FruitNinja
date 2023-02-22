@@ -40,6 +40,8 @@ namespace Concrete.Factories.Blocks
             return block;
         }
         
+        
+        
         private class PrivateRotateAnimation : ITransformAnimation
         {
             private readonly float _duration;

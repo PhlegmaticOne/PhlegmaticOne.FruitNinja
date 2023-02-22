@@ -17,21 +17,15 @@ namespace StartScene
         public void Initialize(IRepository<ScoreModel> scoreRepository)
         {
             _scoreText.text = scoreRepository.Get().Value.ToString();
+            _startGameButton.PointerDown += DisableButtons;
+            _exitButton.PointerDown += DisableButtons;
         }
 
         public void OnStartGameClickExecuteCommand(ICommand command) => 
-            _startGameButton.OnClick(() =>
-            {
-                DisableButtons();
-                command.Execute();
-            });
+            _startGameButton.OnClick(command.Execute);
 
         public void OnExitButtonClickExecuteCommand(ICommand command) => 
-            _exitButton.OnClick(() =>
-            {
-                DisableButtons();
-                command.Execute();
-            });
+            _exitButton.OnClick(command.Execute);
 
         private void DisableButtons()
         {

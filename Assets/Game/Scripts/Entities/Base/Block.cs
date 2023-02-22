@@ -12,13 +12,13 @@ namespace Entities.Base
 {
     public abstract class Block : GravityObject
     {
-        private bool _isDestroyed;
         private ITransformAnimation _transformAnimation;
         private IBlockOnDestroyCommand _onDestroyViewCommand;
         
         [SerializeField] protected BlockView _blockView;
         
         public event Action<Block> Fallen; 
+        public bool IsDestroyed { get; private set; }
         public abstract IBlockConfiguration BlockConfiguration { get; }
         public BlockInfo BlockInfo { get; private set; }
         public bool IsCuttable => BlockInfo.IsCuttable;
@@ -26,11 +26,11 @@ namespace Entities.Base
         public void Initialize(BlockInfo blockInfo, ITransformAnimation transformAnimation)
         {
             BlockInfo = blockInfo;
-            _transformAnimation = transformAnimation;
             _blockView.SetSprite(blockInfo.Sprite);
+            _transformAnimation = transformAnimation;
             _transformAnimation.Start(transform);
         }
-        
+
         public void SetOnDestroyCommand(IBlockOnDestroyCommand onDestroyCommand) => 
             _onDestroyViewCommand = onDestroyCommand;
 
@@ -56,13 +56,13 @@ namespace Entities.Base
         public void PermanentDestroy()
         {
             _transformAnimation.Stop(transform);
-            _isDestroyed = true;
+            IsDestroyed = true;
             Destroy(gameObject);
         }
-
+        
         private void OnBecameInvisible()
         {
-            if (_isDestroyed)
+            if (IsDestroyed)
             {
                 return;
             }

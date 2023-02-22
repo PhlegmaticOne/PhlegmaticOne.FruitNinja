@@ -6,6 +6,8 @@ namespace Configurations.Blocks
     public class BrickBlockConfiguration : ScriptableObject, IBlockConfiguration
     {
         [SerializeField] private bool _blocksInput;
+        [SerializeField] private ParticleSystem _onCollisionParticleSystem;
         public bool BlocksInput => _blocksInput;
+        public ParticleSystem OnCollisionParticleSystem => _onCollisionParticleSystem;
     }
 }

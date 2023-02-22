@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FruitBasketConfiguration
   m_EditorClassIdentifier: 
   _blockInfo: {fileID: 11400000, guid: b965fc62ac845bb42bcae2aba4319c69, type: 2}
-  _spawnInPackageProbability: 0.2
+  _spawnInPackageProbability: 0.15
   _spawnCountInPackagePercentage: 0.2

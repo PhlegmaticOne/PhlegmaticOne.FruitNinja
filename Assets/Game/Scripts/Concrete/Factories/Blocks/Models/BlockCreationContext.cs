@@ -10,5 +10,6 @@ namespace Concrete.Factories.Blocks.Models
         public Vector2 InitialSpeed { get; set; }
         public BlockInfo BlockInfo { get; set; }
         public float BlockGravity { get; set; }
+        public bool WithAnimations { get; set; } = true;
     }
 }

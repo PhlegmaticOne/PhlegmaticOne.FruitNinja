@@ -5,9 +5,9 @@ namespace Systems.Combos
 {
     public class ComboSystem : MonoBehaviour
     {
-        [SerializeField] private float _maxComboDelay;
-        [SerializeField] private int _maxComboCount;
         [SerializeField] private ComboView _comboView;
+        private float _maxComboDelay;
+        private int _maxComboCount;
 
         private float _timeSinceLastCombo;
         private int _currentComboCount;

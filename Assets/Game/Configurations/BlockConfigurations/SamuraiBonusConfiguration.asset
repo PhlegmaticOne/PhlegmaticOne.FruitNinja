@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d5247bde0248e89f91c4c39a85e393, type: 3}
   m_Name: SamuraiBonusConfiguration
   m_EditorClassIdentifier: 
-  _duration: 13
-  _increaseBlocksCountInPackageBy: 2
+  _duration: 15
+  _increaseBlocksCountInPackageBy: 3
   _decreasePackageIntervalsBy: 3
+  _onDestroyParticleSystem: {fileID: 9012291735904606876, guid: 8e342036e37f875499b27f01d00a68ad, type: 3}

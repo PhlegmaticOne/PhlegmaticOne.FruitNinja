@@ -12,6 +12,7 @@ namespace Helpers
         [SerializeField] private AnimatedCommandButtonAnimationParameters _animatedCommandButtonAnimationParameters;
         [SerializeField] private bool _resetOnAnimationEnded = true;
         private bool _isPlaying;
+        private bool _isEnabled = true;
         private UnityAction _beforeAnimationAction;
         private UnityAction _afterAnimationAction;
 
@@ -29,16 +30,18 @@ namespace Helpers
         public void Disable()
         {
             _button.enabled = false;
+            _isEnabled = false;
         }
 
         public void Enable()
         {
             _button.enabled = true;
+            _isEnabled = true;
         }
 
         public void OnHighlighting()
         {
-            if (_isPlaying == false && _button.enabled)
+            if (_isPlaying == false && _isEnabled)
             {
                 _animator.SetTrigger(_animatedCommandButtonAnimationParameters.HighlightedStateName);
             }
@@ -46,7 +49,7 @@ namespace Helpers
 
         public void OnDehighlighting()
         {
-            if (_isPlaying == false)
+            if (_isPlaying == false && _isEnabled)
             {
                 ResetToNormal();
             }

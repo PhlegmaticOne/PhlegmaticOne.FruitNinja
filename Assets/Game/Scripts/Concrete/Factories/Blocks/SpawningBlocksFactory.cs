@@ -1,10 +1,8 @@
 ﻿using Abstracts.Animations;
 using Abstracts.Factories;
-using Concrete.Commands.BlockCommands.Base;
 using Concrete.Factories.Blocks.Base;
 using Concrete.Factories.Blocks.Models;
 using Entities.Base;
-using Spawning.Spawning.Commands;
 using UnityEngine;
 
 namespace Concrete.Factories.Blocks
@@ -28,10 +26,23 @@ namespace Concrete.Factories.Blocks
             var animation = _animationsFactory.Create();
             var block = Object.Instantiate(_prefab, _parent);
             block.transform.position = creationContext.Position;
-            block.Initialize(creationContext.BlockInfo, animation);
+            block.Initialize(creationContext.BlockInfo, creationContext.WithAnimations ? animation : new EmptyAnimation());
             block.AddSpeed(creationContext.InitialSpeed);
             block.SetGravityAcceleration(creationContext.BlockGravity);
             return block;
+        }
+        
+        private class EmptyAnimation : ITransformAnimation
+        {
+            public void Start(Transform transform)
+            {
+                
+            }
+
+            public void Stop(Transform transform)
+            {
+                
+            }
         }
     }
 }

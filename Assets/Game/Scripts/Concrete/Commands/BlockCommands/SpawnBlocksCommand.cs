@@ -17,7 +17,7 @@ namespace Concrete.Commands.BlockCommands
     public class SpawnBlocksCommand : IBlockOnDestroyCommand
     {
         private const float HalfCircle = 180f;
-        private const float AngleOffset = 20f;
+        private const float AngleOffset = 40f;
         private readonly List<BlockInfo> _possibleBlocks;
         private readonly MinMaxInfo<int> _blockCount;
         private readonly float _explosionPower;

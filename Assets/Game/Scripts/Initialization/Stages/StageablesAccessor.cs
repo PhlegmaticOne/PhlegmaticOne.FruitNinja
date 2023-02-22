@@ -8,6 +8,7 @@ using Systems.Freezing;
 using Systems.Health;
 using Systems.Losing;
 using Systems.Magnet;
+using Systems.Metamorphic;
 using Systems.Samurai;
 using Systems.Score;
 using UnityEngine;
@@ -25,12 +26,14 @@ namespace Initialization.Stages
         [SerializeField] private FreezingSystem _freezingSystem;
         [SerializeField] private MagnetSystem _magnetSystem;
         [SerializeField] private SamuraiCanvas _samuraiCanvas;
+        [SerializeField] private MetamorphicSystem _metamorphicSystem;
 
         private List<IStageable> _stageables;
         public List<IStageable> GetStageables()
         {
             return _stageables ??= new List<IStageable>
             {
+                _metamorphicSystem,
                 _timer,
                 _samuraiCanvas,
                 _freezingSystem,
