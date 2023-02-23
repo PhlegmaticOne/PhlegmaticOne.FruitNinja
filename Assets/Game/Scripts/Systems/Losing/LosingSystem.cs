@@ -41,10 +41,13 @@ namespace Systems.Losing
         {
             if (_blocksSystem.BlocksCount == 0)
             {
-                BlocksSystemOnAllBlocksFallen();    
+                BlocksSystemOnAllBlocksFallen();  
+            }
+            else
+            {
+                _blocksSystem.AllBlocksFallen += BlocksSystemOnAllBlocksFallen;
             }
             
-            _blocksSystem.AllBlocksFallen += BlocksSystemOnAllBlocksFallen;
             _gameLostCommand.Execute();
         }
 

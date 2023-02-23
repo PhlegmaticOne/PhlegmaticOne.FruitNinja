@@ -294,7 +294,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -109.5}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 219}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &637638398
 MonoBehaviour:
@@ -873,6 +873,10 @@ PrefabInstance:
     - target: {fileID: 1704981444730183398, guid: e264e6d4c9d78074c8e4ad6137d9d5f0, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278255987
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736363291025517120, guid: e264e6d4c9d78074c8e4ad6137d9d5f0, type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3973675961438142806, guid: e264e6d4c9d78074c8e4ad6137d9d5f0, type: 3}
       propertyPath: m_Name
@@ -1571,6 +1575,10 @@ PrefabInstance:
     - target: {fileID: 1704981444730183398, guid: e264e6d4c9d78074c8e4ad6137d9d5f0, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278265727
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736363291025517120, guid: e264e6d4c9d78074c8e4ad6137d9d5f0, type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3973675961438142806, guid: e264e6d4c9d78074c8e4ad6137d9d5f0, type: 3}
       propertyPath: m_Name

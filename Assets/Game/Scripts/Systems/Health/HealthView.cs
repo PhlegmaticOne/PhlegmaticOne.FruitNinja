@@ -1,5 +1,7 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Systems.Health
@@ -25,11 +27,13 @@ namespace Systems.Health
             ShowImage(_shadowImage);
         }
 
-        public void Hide()
+        public void Hide(Transform parent)
         {
+            var position = transform.position;
+            transform.SetParent(parent);
+            transform.position = position;
             FadeAway(_heartImage);
             FadeAway(_shadowImage);
-            Destroy(gameObject, _fadeDuration);
         }
 
         private void OnDestroy()
@@ -46,7 +50,11 @@ namespace Systems.Health
 
         private static void Kill(Image image) => image.DOKill();
         private void ShowImage(Image image) => image.DOFade(1, _fadeDuration);
-        private void FadeAway(Image image) => image.DOFade(0, _fadeDuration);
+        private void FadeAway(Image image) => image.DOFade(0, _fadeDuration)
+            .OnComplete(() =>
+            {
+                Destroy(gameObject);
+            });
 
     }
 }

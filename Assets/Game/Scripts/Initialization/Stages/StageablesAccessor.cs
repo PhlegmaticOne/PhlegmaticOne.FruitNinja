@@ -35,11 +35,11 @@ namespace Initialization.Stages
         {
             return _stageables ??= new List<IStageable>
             {
+                _freezingSystem,
                 _pauseSystem,
                 _metamorphicSystem,
                 _timer,
                 _samuraiCanvas,
-                _freezingSystem,
                 _magnetSystem,
                 _scoreSystem,
                 _cuttingSystem,

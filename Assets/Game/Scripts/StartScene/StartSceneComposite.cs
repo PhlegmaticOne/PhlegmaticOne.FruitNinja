@@ -15,9 +15,16 @@ namespace StartScene
         [SerializeField] private int _gameSceneIndex;
         private void Awake()
         {
+            SetTimeScale(1f);
             _startScenePopup.Initialize(_repositoryInitializer.Create());
             _startScenePopup.OnStartGameClickExecuteCommand(new TransitToSceneCommand(_gameSceneIndex, _sceneTransition));
             _startScenePopup.OnExitButtonClickExecuteCommand(new ExitCommand());
+        }
+        
+        private void SetTimeScale(float scale)
+        {
+            Time.timeScale = scale;
+            Time.fixedDeltaTime = Time.timeScale * 0.02f;
         }
     }
 }

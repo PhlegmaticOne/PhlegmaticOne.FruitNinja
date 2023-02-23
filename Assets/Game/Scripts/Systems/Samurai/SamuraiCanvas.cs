@@ -25,7 +25,7 @@ namespace Systems.Samurai
         {
             if (_showCoroutine != null)
             {
-                return;
+                StopCoroutine(_showCoroutine);
             }
             
             gameObject.SetActive(true);

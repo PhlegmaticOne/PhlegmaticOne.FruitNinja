@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Abstracts.Probabilities;
 using Abstracts.Stages;
 using Concrete.Factories.Blocks.Models;
@@ -22,6 +23,7 @@ namespace Spawning.Spawning
         private IAbstractSpawner _abstractSpawner;
         private IPackageGenerator _packageGenerator;
         private ISpawningDifficulty _defaultSpawningDifficulty;
+        public bool DifficultyChanged { get; private set; }
         
         private Coroutine _spawnCoroutine;
         private Coroutine _changeDifficultyCoroutine;
@@ -48,9 +50,13 @@ namespace Spawning.Spawning
             StopCoroutine(_spawnCoroutine);
         }
 
-        private IEnumerator Spawn()
+        private IEnumerator Spawn(bool waitStartDelay = true)
         {
-            yield return new WaitForSeconds(_startDelay);
+            if (waitStartDelay)
+            {
+                yield return new WaitForSeconds(_startDelay);
+            }
+            
             var spawnIterations = 0;
             while (true)
             {
@@ -68,7 +74,7 @@ namespace Spawning.Spawning
         {
             if (_changeDifficultyCoroutine != null)
             {
-                return;
+                StopCoroutine(_changeDifficultyCoroutine);
             }
             
             _changeDifficultyCoroutine = StartCoroutine(ChangeDifficulty(spawningDifficulty, time));
@@ -76,11 +82,12 @@ namespace Spawning.Spawning
 
         private IEnumerator ChangeDifficulty(ISpawningDifficulty spawningDifficulty, float time)
         {
-            var current = _spawningDifficulty;
             _spawningDifficulty = spawningDifficulty;
+            StopCoroutine(_spawnCoroutine);
+            _spawnCoroutine = StartCoroutine(Spawn(false));
             yield return new WaitForSeconds(time);
-            _spawningDifficulty = current;
             _changeDifficultyCoroutine = null;
+            _spawningDifficulty = _defaultSpawningDifficulty;
         }
 
         private IEnumerator SpawnPackage(DifficultyInfo difficultyInfo)

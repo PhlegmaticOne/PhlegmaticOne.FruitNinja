@@ -17,11 +17,11 @@ namespace Systems.Health
         public int CurrentHeartsCount => _heartsCount;
         public int MaxHeartsCount => _maxHeartsCount;
         
-        public void Initialize(HealthSystemConfiguration healthSystemConfiguration, Camera cam)
+        public void Initialize(HealthSystemConfiguration healthSystemConfiguration)
         {
             _healthSystemConfiguration = healthSystemConfiguration;
             _healthBarView.Initialize(healthSystemConfiguration.StartHealthCount,
-                healthSystemConfiguration.HealthViewPrefab, cam);
+                healthSystemConfiguration.HealthViewPrefab);
             _heartsCount = healthSystemConfiguration.StartHealthCount;
             _maxHeartsCount = healthSystemConfiguration.MaxHealthCount;
         }
@@ -67,10 +67,14 @@ namespace Systems.Health
         
         private void AddHeartFromPosition(Vector3 position)
         {
-            var newHeartPosition = _healthBarView.CalculatePosition();
             _currentHealthView = AddHeart();
-            _currentHealthView.transform.position = position;
-            _currentHealthView.transform.DOMove(newHeartPosition, _healthSystemConfiguration.TransitionToHealthBarTime)
+            var heartTransform = _currentHealthView.transform;
+            
+            var newHeartPositionInBar = heartTransform.position;
+            heartTransform.position = position;
+            
+            heartTransform
+                .DOMove(newHeartPositionInBar, _healthSystemConfiguration.TransitionToHealthBarTime)
                 .OnComplete(() => _currentHealthView = null);
         }
         

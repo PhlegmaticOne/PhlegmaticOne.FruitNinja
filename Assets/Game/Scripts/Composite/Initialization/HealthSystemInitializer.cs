@@ -12,10 +12,9 @@ namespace Composite.Initialization
         [SerializeField] private HealthController _healthController;
         [SerializeField] private StateCheckingBlocksSystem _stateCheckingBlocksSystem;
         [SerializeField] private HealthSystem _healthSystem;
-        [SerializeField] private Camera _camera;
         public override void Initialize()
         {
-            _healthSystem.Initialize(_healthSystemConfiguration, _camera);
+            _healthSystem.Initialize(_healthSystemConfiguration);
             _healthController.Initialize(_healthSystem, _stateCheckingBlocksSystem);
         }
     }

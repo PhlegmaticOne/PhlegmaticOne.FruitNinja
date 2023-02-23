@@ -12,6 +12,7 @@ namespace Systems.Health
         private bool _isRemoving;
         private HealthSystem _healthSystem;
         private StateCheckingBlocksSystem _stateCheckingBlocksSystem;
+        private Coroutine _disableHeartRemovingRoutine;
 
         public void Initialize(HealthSystem healthSystem, StateCheckingBlocksSystem stateCheckingBlocksSystem)
         {
@@ -22,11 +23,12 @@ namespace Systems.Health
 
         public void DisableHeartRemoving(float time)
         {
-            if (_isRemoving == false)
+            if (_disableHeartRemovingRoutine != null)
             {
-                return;
+                StopCoroutine(_disableHeartRemovingRoutine);
             }
-            StartCoroutine(DisableHeartRemovingRoutine(time));
+            
+            _disableHeartRemovingRoutine = StartCoroutine(DisableHeartRemovingRoutine(time));
         }
 
         private IEnumerator DisableHeartRemovingRoutine(float time)

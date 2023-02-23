@@ -33,5 +33,15 @@ namespace StartScene
             _startGameButton.Disable();
             _canvasGroup.interactable = false;
         }
+        
+        
+        private void EnableButtons()
+        {
+            _exitButton.Enable();
+            _startGameButton.Enable();
+            _canvasGroup.interactable = true;
+        }
+        
+        
     }
 }

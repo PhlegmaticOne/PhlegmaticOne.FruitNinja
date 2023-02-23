@@ -1,10 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Abstracts.Stages;
-using Concrete.Factories.Blocks;
-using Entities.Base;
-using Systems.Blocks;
 using UnityEngine;
 
 namespace Systems.Freezing
@@ -23,6 +18,7 @@ namespace Systems.Freezing
         public void Disable()
         {
             TryStopRoutine();
+            SetTimeScale(1f);
             _canvas.gameObject.SetActive(false);
         }
 

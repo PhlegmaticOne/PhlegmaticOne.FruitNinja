@@ -14,6 +14,11 @@ namespace Helpers
 
         public void StartTimer(int seconds)
         {
+            if (_timerCoroutine != null)
+            {
+                StopCoroutine(_timerCoroutine);
+            }
+            
             gameObject.SetActive(true);
             _timerCoroutine = StartCoroutine(UpdateTimer(seconds));
         }
@@ -30,6 +35,7 @@ namespace Helpers
 
             _textMeshPro.text = string.Empty;
             gameObject.SetActive(false);
+            _timerCoroutine = null;
         }
 
         public void Enable() { }

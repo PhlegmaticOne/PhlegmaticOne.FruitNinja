@@ -39,9 +39,15 @@ namespace Concrete.Commands.BlockCommands
         {
             var samuraiSpawningDifficulty = new SamuraiModeSpawningDifficulty(_spawnSystemConfiguration,
                 _increaseBlocksCountInPackageBy, _decreasePackageIntervalsBy);
+            
             _samuraiCanvas.Show(_duration);
-            _healthController.DisableHeartRemoving(_duration + 0.5f);
-            _spawningSystem.ChangeSpawnDifficulty(samuraiSpawningDifficulty, _duration - 2);
+            _healthController.DisableHeartRemoving(_duration + 1f);
+            _spawningSystem.ChangeSpawnDifficulty(samuraiSpawningDifficulty, _duration - MinusLastSpawnTime());
+        }
+
+        private float MinusLastSpawnTime()
+        {
+            return _spawnSystemConfiguration.SpawnPackageIntervals.Max / _decreasePackageIntervalsBy;
         }
     }
 }
