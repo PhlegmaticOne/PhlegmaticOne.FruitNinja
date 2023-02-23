@@ -23,6 +23,11 @@ namespace Systems.Samurai
         
         public void Show(float time)
         {
+            if (_showCoroutine != null)
+            {
+                return;
+            }
+            
             gameObject.SetActive(true);
             _showCoroutine = StartCoroutine(ShowRoutine(time));
         }
@@ -33,6 +38,7 @@ namespace Systems.Samurai
             yield return new WaitForSeconds(time);
             _particleSystem.Stop();
             gameObject.SetActive(false);
+            _showCoroutine = null;
         }
     }
 }

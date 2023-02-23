@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fadeAnimation: {fileID: 6138088107577186411}
+  _canvasGroup: {fileID: 5136927284899150527}
 --- !u!1 &6708515544301571763
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +160,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: bedd1e7bf9989554cb027d172891bcb3, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 

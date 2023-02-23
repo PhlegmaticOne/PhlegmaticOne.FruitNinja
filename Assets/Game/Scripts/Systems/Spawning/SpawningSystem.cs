@@ -66,6 +66,11 @@ namespace Spawning.Spawning
 
         public void ChangeSpawnDifficulty(ISpawningDifficulty spawningDifficulty, float time)
         {
+            if (_changeDifficultyCoroutine != null)
+            {
+                return;
+            }
+            
             _changeDifficultyCoroutine = StartCoroutine(ChangeDifficulty(spawningDifficulty, time));
         }
 
@@ -75,6 +80,7 @@ namespace Spawning.Spawning
             _spawningDifficulty = spawningDifficulty;
             yield return new WaitForSeconds(time);
             _spawningDifficulty = current;
+            _changeDifficultyCoroutine = null;
         }
 
         private IEnumerator SpawnPackage(DifficultyInfo difficultyInfo)

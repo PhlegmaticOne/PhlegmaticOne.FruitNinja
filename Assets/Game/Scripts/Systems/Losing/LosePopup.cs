@@ -29,7 +29,7 @@ namespace Systems.Losing
             gameObject.SetActive(true);
             _scoreText.text = gameScore.ToString();
             _maxScoreText.SetText(maxScore.ToString());
-            _canvasGroup.DOFade(1, _fadeDuration).OnComplete(EnableButtons);
+            _canvasGroup.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(EnableButtons);
         }
 
         private void OnRestartButtonClickedExecute(ICommand command)
@@ -39,6 +39,7 @@ namespace Systems.Losing
             _restartCommandButton.OnAfterAnimation(() =>
             {
                 _canvasGroup.DOFade(0, _fadeDuration)
+                    .SetUpdate(true)
                     .OnComplete(() =>
                     {
                         command.Execute();

@@ -9,7 +9,8 @@ namespace Composite
     {
         [SerializeField] private List<CompositeInitializer> _initializers;
         [SerializeField] private StageablesAccessor _stageablesAccessor;
-        
+
+        private float _entryScale;
         private void Awake()
         {
             foreach (var compositeInitializer in _initializers)

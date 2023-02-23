@@ -22,6 +22,10 @@ namespace Systems.Health
 
         public void DisableHeartRemoving(float time)
         {
+            if (_isRemoving == false)
+            {
+                return;
+            }
             StartCoroutine(DisableHeartRemovingRoutine(time));
         }
 
