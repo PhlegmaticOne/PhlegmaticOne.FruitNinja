@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MagnetBonusConfiguration
   m_EditorClassIdentifier: 
   _blockInfo: {fileID: 11400000, guid: e61b5cac3ce0c184888614412efdf310, type: 2}
-  _spawnInPackageProbability: 0.1
+  _spawnInPackageProbability: 0.17
   _spawnCountInPackagePercentage: 0.1

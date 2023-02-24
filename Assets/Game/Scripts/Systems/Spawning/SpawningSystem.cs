@@ -23,10 +23,10 @@ namespace Spawning.Spawning
         private IAbstractSpawner _abstractSpawner;
         private IPackageGenerator _packageGenerator;
         private ISpawningDifficulty _defaultSpawningDifficulty;
-        public bool DifficultyChanged { get; private set; }
         
         private Coroutine _spawnCoroutine;
         private Coroutine _changeDifficultyCoroutine;
+        private int _defaultSpawnIteration;
         
         public void Initialize(ISpawningDifficulty spawningDifficulty,
             IPackageGenerator packageGenerator,
@@ -50,23 +50,29 @@ namespace Spawning.Spawning
             StopCoroutine(_spawnCoroutine);
         }
 
-        private IEnumerator Spawn(bool waitStartDelay = true)
+        private IEnumerator Spawn(bool waitStartDelay = true, bool fromZero = false, bool increaseIterations = true)
         {
             if (waitStartDelay)
             {
                 yield return new WaitForSeconds(_startDelay);
             }
-            
-            var spawnIterations = 0;
+
+            var spawnIteration = fromZero ? 0 : _defaultSpawnIteration;
+
             while (true)
             {
-                var difficultyParameters = _spawningDifficulty.CalculateDifficultyInfo(spawnIterations);
+                var difficultyParameters = _spawningDifficulty.CalculateDifficultyInfo(spawnIteration);
                 
                 yield return SpawnPackage(difficultyParameters);
                 
                 yield return new WaitForSeconds(difficultyParameters.TimeToNextBlockPackage);
                 
-                spawnIterations++;
+                spawnIteration++;
+                
+                if (increaseIterations)
+                {
+                    _defaultSpawnIteration++;
+                }
             }
         }
 
@@ -84,10 +90,12 @@ namespace Spawning.Spawning
         {
             _spawningDifficulty = spawningDifficulty;
             StopCoroutine(_spawnCoroutine);
-            _spawnCoroutine = StartCoroutine(Spawn(false));
+            _spawnCoroutine = StartCoroutine(Spawn(false, true, false));
             yield return new WaitForSeconds(time);
             _changeDifficultyCoroutine = null;
+            StopCoroutine(_spawnCoroutine);
             _spawningDifficulty = _defaultSpawningDifficulty;
+            _spawnCoroutine = StartCoroutine(Spawn());
         }
 
         private IEnumerator SpawnPackage(DifficultyInfo difficultyInfo)

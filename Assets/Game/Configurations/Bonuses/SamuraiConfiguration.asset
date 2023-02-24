@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SamuraiConfiguration
   m_EditorClassIdentifier: 
   _blockInfo: {fileID: 11400000, guid: 7f60424b03b122a4eb16cbee008da41f, type: 2}
-  _spawnInPackageProbability: 0.05
+  _spawnInPackageProbability: 0.08
   _spawnCountInPackagePercentage: 0.001

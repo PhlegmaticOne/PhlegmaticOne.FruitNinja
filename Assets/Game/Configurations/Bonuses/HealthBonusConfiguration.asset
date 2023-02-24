@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: HealthBonusConfiguration
   m_EditorClassIdentifier: 
   _blockInfo: {fileID: 11400000, guid: e4ac722364a12404ea2eddbe1f970352, type: 2}
-  _spawnInPackageProbability: 1
+  _spawnInPackageProbability: 0.12
   _spawnCountInPackagePercentage: 0.1
