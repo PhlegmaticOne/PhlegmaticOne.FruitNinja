@@ -13,6 +13,9 @@ namespace Systems.Magnet
         private Coroutine _magnetizeCoroutine;
         private const int ThrowPower = 3;
 
+        private Vector3 _lastMagnetizedPoint;
+        private float _lastMagnetizedRadius;
+
         public void Initialize(FilteringBlocksSystem filteringBlocksSystem, MagnetWaves magnetWaves)
         {
             _filteringBlocksSystem = filteringBlocksSystem;
@@ -25,8 +28,8 @@ namespace Systems.Magnet
         {
             if (_magnetizeCoroutine != null)
             {
-                _magnetWaves.Hide();
                 StopCoroutine(_magnetizeCoroutine);
+                EndMagnetizing();
             }
         }
 
@@ -36,7 +39,9 @@ namespace Systems.Magnet
             {
                 return;
             }
-            
+
+            _lastMagnetizedPoint = point;
+            _lastMagnetizedRadius = radius;
             _magnetizeCoroutine = StartCoroutine(MagnetizeRoutine(point, time, power, radius, magnetizedCenterRadius));
         }
 
@@ -63,8 +68,13 @@ namespace Systems.Magnet
                 currentTime += Time.fixedDeltaTime;
             }
             
-            ResetGravities(point, radius);
-            ThrowBlocksInRandomDirection(point, radius);
+            EndMagnetizing();
+        }
+
+        private void EndMagnetizing()
+        {
+            ResetGravities(_lastMagnetizedPoint, _lastMagnetizedRadius);
+            ThrowBlocksInRandomDirection(_lastMagnetizedPoint, _lastMagnetizedRadius);
             _magnetWaves.Hide();
             _magnetizeCoroutine = null;
         }
